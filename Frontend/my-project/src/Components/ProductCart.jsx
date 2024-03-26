@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Cartcontext } from "../context/context";
 
-const ProductCard = ({ product }) => {
+const Item = (props) => {
+  const { items, setItem } = useContext(Cartcontext);
+
+  const handleAddtoCart = () => {
+    const newItem = {
+      name: props.product.name,
+      price: props.product.price,
+      image: props.product.image,
+    };
+
+    setItem([...items, newItem]);
+  };
+
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-md bg-white">
+    <div className="max-w-xs rounded overflow-hidden shadow-md bg-white p-4 m-4">
       <img
-        className="w-full rounded-t"
-        src={product.image}
-        alt={product.name}
+        className="w-full"
+        src={props.product.image}
+        alt={props.product.name}
       />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{product.name}</div>
-        <p className="text-gray-700 text-base">{product.price}</p>
+        <h2 className="font-bold text-xl mb-2">{props.product.name}</h2>
+        <p className="text-gray-700 text-base">{`Price: ${props.product.price}`}</p>
       </div>
       <div className="px-6 py-4">
-        <button className="bg-blue-500 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-full">
+        <button
+          onClick={handleAddtoCart}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        >
           Add to Cart
         </button>
       </div>
@@ -21,4 +37,8 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default Item;
+
+// The product will be listed on the main screen in the form of card with a button
+
+// when the button is clicked  the data is saved in the context

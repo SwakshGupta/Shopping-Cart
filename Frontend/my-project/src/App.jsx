@@ -1,7 +1,8 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Components/navbar";
-import Sidebar from "./Components/Sidebar";
-import ProductCard from "./Components/ProductCart";
+import Cart from "./Components/Shopping_Cart";
+import Item from "./Components/ProductCart";
 
 function App() {
   // Sample product data
@@ -10,31 +11,36 @@ function App() {
       id: 1,
       name: "Product 1",
       price: "$50",
+      image: "https://via.placeholder.com/300",
     },
     {
-      id: 1,
-      name: "Product 1",
-      price: "$50",
+      id: 2,
+      name: "Product 2",
+      price: "$70",
+      image: "https://via.placeholder.com/300",
     },
   ];
 
   return (
-    <>
-      <div className=" h-screen  bg-slate-600">
+    <div className="h-screen bg-slate-600">
+      <Router>
         <Navbar />
-
-        <div className="flex  flex-1">
-          <div className="flex flex-wrap justify-center p-4">
-            {products.map((product) => (
-              <div key={product.id} className="m-4">
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
+        <Routes>
+          <Route exact path="/" element={<Home products={products} />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
+
+//  here we have defined a seperate compoenet to render our product
+const Home = ({ products }) => (
+  <div className="flex flex-wrap justify-center">
+    {products.map((product) => (
+      <Item key={product.id} product={product} />
+    ))}
+  </div>
+);
 
 export default App;
