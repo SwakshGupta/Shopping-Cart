@@ -1,39 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { Cartcontext } from "../context/context";
-import axios from "axios";
 
 const Cart = () => {
   const { items, Setitems } = useContext(Cartcontext);
 
-  // here we are fetching the items using the get method of axios
-
-  const fetchItems = async () => {
-    try {
-      const response = await axios.get("http://localhost:8001/api/cart/getall");
-      Setitems(response.data);
-    } catch (error) {
-      console.error("Error fetching items:", error);
-    }
-  };
-
-  // here we are using use effect hook which  render our items only once since we are uisng empty array
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  // to remove the items we are using delete method of axios
-
-  const removeFromCart = async (index, productId) => {
-    try {
-      await axios.delete(`http://localhost:8001/api/cart/delete/${productId}`);
-
-      const updatedItems = [...items];
-      updatedItems.splice(index, 1);
-      Setitems(updatedItems);
-    } catch (error) {
-      console.error("Error removing item from cart:", error);
-    }
+  const removeFromCart = (index) => {
+    const updatedItems = [...items];
+    updatedItems.splice(index, 1);
+    Setitems(updatedItems);
   };
 
   // Check if cart is empty
