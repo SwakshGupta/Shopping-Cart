@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Cartcontext } from "../context/context";
 
 const Item = (props) => {
-  const { items, setItem } = useContext(Cartcontext);
+  const { items, Setitems } = useContext(Cartcontext);
 
   const handleAddtoCart = () => {
     const newItem = {
@@ -11,7 +11,7 @@ const Item = (props) => {
       image: props.product.image,
     };
 
-    setItem([...items, newItem]);
+    Setitems([...items, newItem]);
   };
 
   return (
