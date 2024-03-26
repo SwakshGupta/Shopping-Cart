@@ -4,14 +4,20 @@ import { Cartcontext } from "../context/context";
 const Item = (props) => {
   const { items, Setitems } = useContext(Cartcontext);
 
-  const handleAddtoCart = () => {
-    const newItem = {
-      name: props.product.name,
-      price: props.product.price,
-      image: props.product.image,
-    };
+  const handleAddtoCart = async () => {
+    try {
+      const newItem = {
+        name: props.product.name,
+        price: props.product.price,
+        image: props.product.image,
+      };
 
-    Setitems([...items, newItem]);
+      await axios.post("http://localhost:8001/api/cart/add", newItem);
+
+      Setitems([...items, newItem]);
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
   };
 
   return (

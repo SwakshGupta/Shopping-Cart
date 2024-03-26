@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const router = require("./Routes/Product");
+const Router = require("./Routes/cart");
 
 const app = express();
 
@@ -20,6 +21,7 @@ mongoose
 
 // here we have defined our routes
 
-app.use("/api/cart", router);
+app.use("/api/product", router);
+app.use("/api/cart", Router);
 
 app.listen(PORT, () => console.log(`Server has been started at PORT ${PORT}`));
