@@ -1,13 +1,33 @@
 import React, { useContext, useEffect } from "react";
 import { Cartcontext } from "../context/context";
+import axios from "axios";
 
 const Cart = () => {
   const { items, Setitems } = useContext(Cartcontext);
 
-  const removeFromCart = (index) => {
-    const updatedItems = [...items];
-    updatedItems.splice(index, 1);
-    Setitems(updatedItems);
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:8001/api/cart");
+      Setitems(response.data);
+    } catch (error) {
+      console.error("Error fetching items:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, []); // Run only once when the component mounts
+
+  const removeFromCart = async (index) => {
+    try {
+      await axios.delete(`http://localhost:8001/api/cart/delete/${index}`);
+
+      const updatedItems = [...items];
+      updatedItems.splice(index, 1);
+      Setitems(updatedItems);
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
   };
 
   // Check if cart is empty
