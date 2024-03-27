@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Cartcontext } from "../context/context";
+import axios from "axios";
 
 const Item = (props) => {
   const { items, Setitems } = useContext(Cartcontext);
