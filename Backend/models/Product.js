@@ -2,7 +2,7 @@
 
 const { Schema, model } = require("mongoose");
 
-const UserSchema = new Schema(
+const ProductSchema = new Schema(
   {
     name: {
       type: String,
@@ -22,6 +22,6 @@ const UserSchema = new Schema(
   }
 );
 
-const Product = model("Product", UserSchema); // here the name of the model is Product
+const Product = model("Product", ProductSchema);
 
 module.exports = Product;
