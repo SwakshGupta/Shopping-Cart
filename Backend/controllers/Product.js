@@ -18,10 +18,11 @@ const getall = async (req, res) => {
 };
 
 const Addproduct = async (req, res) => {
-  const { name, price, image } = req.body;
+  const { Id, name, price, image } = req.body;
 
   try {
     const newProduct = new Product({
+      Id,
       name,
       price,
       image,

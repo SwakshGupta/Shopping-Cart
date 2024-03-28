@@ -2,17 +2,17 @@
 
 import { createContext, useState } from "react";
 
-export const Cartcontext = createContext();
+export const ProductContext = createContext();
 
-export const CartProvider = (props) => {
-  const [items, Setitems] = useState([]);
+export const ProductProvider = (props) => {
+  const [items, setitems] = useState([]);
 
-  const cartValue = { items, Setitems };
+  const cartValue = { items, setitems };
 
   return (
-    <Cartcontext.Provider value={cartValue}>
+    <ProductContext.Provider value={cartValue}>
       {props.children}
-    </Cartcontext.Provider>
+    </ProductContext.Provider>
   );
 };
 

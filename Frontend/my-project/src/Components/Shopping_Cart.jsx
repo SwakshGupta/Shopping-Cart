@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import { Cartcontext } from "../context/context";
+import { CartContext } from "../context/Cart";
 import axios from "axios";
 
 const Cart = () => {
-  const { items, Setitems } = useContext(Cartcontext);
+  const { cartItems, setCartItems } = useContext(CartContext);
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get("http://localhost:8001/api/cart");
-      Setitems(response.data);
+      const response = await axios.get("http://localhost:8001/api/cart/getall");
+      setCartItems(response.data);
     } catch (error) {
       console.error("Error fetching items:", error);
     }
@@ -24,14 +24,14 @@ const Cart = () => {
 
       const updatedItems = [...items];
       updatedItems.splice(index, 1);
-      Setitems(updatedItems);
+      setCartItems(updatedItems);
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
   };
 
   // Check if cart is empty
-  if (!Array.isArray(items) || items.length === 0) {
+  if (!Array.isArray(cartItems) || cartItems.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-xl">Cart is empty</p>
@@ -44,7 +44,7 @@ const Cart = () => {
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
 
       <ul className="divide-y divide-gray-300">
-        {items.map((item, index) => (
+        {cartItems.map((item, index) => (
           <li key={index} className="py-2 flex items-center">
             <img
               src={item.image}

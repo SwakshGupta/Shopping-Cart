@@ -1,8 +1,10 @@
+// the main reason to get this cart context api to manage the cart data
+
 import React, { createContext, useState } from "react";
 
 export const CartContext = createContext();
 
-export const CartProvider = ({ props }) => {
+export const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
 
   // Functions to add, remove, or update items in the cart can go here
