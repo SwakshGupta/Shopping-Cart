@@ -12,18 +12,14 @@ const Item = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.post(
-          "http://localhost:8001/api/product/add",
-          props.product
-        );
-        console.log("Product added to database successfully.");
-
         const response = await axios.get(
           "http://localhost:8001/api/product/getall"
         );
         setitems(response.data);
+        setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
-        console.error("Error:", error);
+        setError(error);
+        setLoading(false); // Set loading to false in case of error
       }
     };
 
@@ -32,13 +28,23 @@ const Item = (props) => {
 
   const handleAddToCart = () => {
     const newItem = {
-      productId: props.product.id,
+      productId: props.product.Id,
       name: props.product.name,
       price: props.product.price,
       image: props.product.image,
     };
 
-    setCartItems([...cartItems, newItem]); // here the items which we get from the props and added into the context api with the help of spread out operator
+    // Send the new item to the backend
+    axios
+      .post("http://localhost:8001/api/cart/add", newItem)
+      .then((response) => {
+        console.log("Item added to cart successfully:", response.data);
+        // Update the local cartItems state
+        setCartItems([...cartItems, newItem]);
+      })
+      .catch((error) => {
+        console.error("Error adding item to cart:", error);
+      });
   };
 
   if (loading) {
@@ -46,24 +52,31 @@ const Item = (props) => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-md bg-white p-4 m-4">
-      <img className="w-full" src={items.image} alt={items.image} />
-      <div className="px-6 py-4">
-        <h2 className="font-bold text-xl mb-2">{items.name}</h2>
-        <p className="text-gray-700 text-base">{`Price: ${items.price}`}</p>
-      </div>
-      <div className="px-6 py-4">
-        <button
-          onClick={handleAddToCart}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+    <div>
+      {items.map((item) => (
+        <div
+          key={item.Id}
+          className="max-w-xs rounded overflow-hidden shadow-md bg-white p-4 m-4"
         >
-          Add to Cart
-        </button>
-      </div>
+          <img className="w-full" src={item.image} alt={item.name} />
+          <div className="px-6 py-4">
+            <h2 className="font-bold text-xl mb-2">{item.name}</h2>
+            <p className="text-gray-700 text-base">{`Price: ${item.price}`}</p>
+          </div>
+          <div className="px-6 py-4">
+            <button
+              onClick={handleAddToCart}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -8,15 +8,15 @@ function App() {
   // Sample product data
   const products = [
     {
-      Id: 1,
+      Id: "1",
       name: "Product 1",
-      price: "$50",
+      price: 50,
       image: "https://via.placeholder.com/300",
     },
     {
-      Id: 2,
+      Id: "2",
       name: "Product 2",
-      price: "$70",
+      price: 70,
       image: "https://via.placeholder.com/300",
     },
   ];
@@ -34,11 +34,10 @@ function App() {
   );
 }
 
-//  here we have defined a seperate compoenet to render our product
 const Home = ({ products }) => (
   <div className="flex flex-wrap justify-center">
-    {products.map((product) => (
-      <Item key={product.Id} product={product} />
+    {products.map((product, index) => (
+      <Item key={index} product={product} />
     ))}
   </div>
 );
