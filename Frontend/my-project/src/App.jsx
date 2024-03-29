@@ -7,27 +7,13 @@ import Addproduct from "./Components/Addproduct";
 
 function App() {
   // Sample product data
-  const products = [
-    {
-      Id: "4",
-      name: "Product 1",
-      price: 50,
-      image: "https://via.placeholder.com/300",
-    },
-    {
-      Id: "5",
-      name: "Product 2",
-      price: 70,
-      image: "https://via.placeholder.com/300",
-    },
-  ];
 
   return (
     <div className="h-screen bg-slate-600">
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home products={products} />} />
+          <Route exact path="/" element={<Item />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/AddProduct" element={<Addproduct />} />
         </Routes>
@@ -36,11 +22,4 @@ function App() {
   );
 }
 
-const Home = ({ products }) => (
-  <div className="flex flex-wrap justify-center">
-    {products.map((product) => (
-      <Item key={product.Id} product={product} />
-    ))}
-  </div>
-);
 export default App;

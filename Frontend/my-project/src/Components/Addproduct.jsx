@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const AddProduct = () => {
   const [productData, setProductData] = useState({
+    Id: "",
     name: "",
     price: "",
-    id: "",
     image: "",
   });
 
@@ -13,16 +14,46 @@ const AddProduct = () => {
     setProductData({ ...productData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your code here to handle form submission
-    console.log("Submitted:", productData);
+    try {
+      // Send POST request to save product data
+      const response = await axios.post(
+        "http://localhost:8001/api/product/add",
+        productData
+      );
+      console.log("Product added successfully:", response.data);
+
+      // Reset the form fields after successful submission
+      setProductData({
+        Id: "",
+        name: "",
+        price: "",
+        image: "",
+      });
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
 
   return (
     <div className="max-w-lg mx-auto mt-8 bg-black text-white p-8 rounded-md">
       <h1 className="text-3xl font-bold mb-8 text-center">Add Product</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="Id" className="block mb-2 font-semibold">
+            ID:
+          </label>
+          <input
+            type="text"
+            id="Id"
+            name="Id"
+            value={productData.Id}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+            required
+          />
+        </div>
         <div>
           <label htmlFor="name" className="block mb-2 font-semibold">
             Name:
@@ -46,20 +77,6 @@ const AddProduct = () => {
             id="price"
             name="price"
             value={productData.price}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="id" className="block mb-2 font-semibold">
-            ID:
-          </label>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={productData.id}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
             required
