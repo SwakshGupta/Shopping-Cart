@@ -42,12 +42,11 @@ const Item = (props) => {
   }, []);
   const handleAddToCart = () => {
     const newItem = {
-      productId: props.product._id,
+      productId: props.product.Id,
       name: props.product.name,
       price: props.product.price,
       image: props.product.image,
     };
-    console.log(newItem);
 
     // Send the new item to the backend
     axios

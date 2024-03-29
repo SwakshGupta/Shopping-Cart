@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { CartContext } from "../context/Cart";
 import axios from "axios";
 
-const Cart = (props) => {
+const Cart = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const fetchItems = async () => {
@@ -18,18 +18,20 @@ const Cart = (props) => {
     fetchItems();
   }, []); // // Include props.product in dependency array to re-run effect when new product data is passed
 
-  const removeFromCart = async (index) => {
+  const removeFromCart = async (productId) => {
+    console.log(productId);
     try {
-      await axios.delete(`http://localhost:8001/api/cart/delete/${index}`);
+      await axios.delete(`http://localhost:8001/api/cart/delete/${productId}`);
 
-      const updatedItems = [...items];
-      updatedItems.splice(index, 1);
+      // Filter out the deleted product from cartItems based on productId
+      const updatedItems = cartItems.filter(
+        (item) => !item.products.includes(productId)
+      );
       setCartItems(updatedItems);
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
   };
-
   // Check if cart is empty
   if (!Array.isArray(cartItems) || cartItems.length === 0) {
     return (
@@ -47,16 +49,16 @@ const Cart = (props) => {
         {cartItems.map((item, index) => (
           <li key={index} className="py-2 flex items-center">
             <img
-              src={cartItems.image}
-              alt={cartItems.name}
+              src={item.image}
+              alt={item.name}
               className="w-12 h-12 object-cover rounded-full"
             />
             <div className="ml-4">
-              <h3 className="font-semibold">{cartItems.name}</h3>
-              <p className="text-black">{cartItems.price}</p>
+              <h3 className="font-semibold">{item.name}</h3>
+              <p className="text-black">{item.price}</p>
             </div>
             <button
-              onClick={() => removeFromCart(index)}
+              onClick={() => removeFromCart(item.products[0])}
               className="ml-auto bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
             >
               Remove
