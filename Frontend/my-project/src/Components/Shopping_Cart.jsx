@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { CartContext } from "../context/Cart";
 import axios from "axios";
 
-const Cart = () => {
+const Cart = (props) => {
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const fetchItems = async () => {
@@ -16,7 +16,7 @@ const Cart = () => {
 
   useEffect(() => {
     fetchItems();
-  }, []); // Run only once when the component mounts
+  }, []); // // Include props.product in dependency array to re-run effect when new product data is passed
 
   const removeFromCart = async (index) => {
     try {
@@ -47,13 +47,13 @@ const Cart = () => {
         {cartItems.map((item, index) => (
           <li key={index} className="py-2 flex items-center">
             <img
-              src={item.image}
-              alt={item.name}
+              src={cartItems.image}
+              alt={cartItems.name}
               className="w-12 h-12 object-cover rounded-full"
             />
             <div className="ml-4">
-              <h3 className="font-semibold">{item.name}</h3>
-              <p className="text-black">{item.price}</p>
+              <h3 className="font-semibold">{cartItems.name}</h3>
+              <p className="text-black">{cartItems.price}</p>
             </div>
             <button
               onClick={() => removeFromCart(index)}

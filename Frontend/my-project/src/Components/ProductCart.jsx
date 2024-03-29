@@ -8,35 +8,50 @@ const Item = (props) => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const productData = {
+          Id: props.product.Id,
+          name: props.product.name,
+          price: props.product.price,
+          image: props.product.image,
+        };
+
+        await axios.post("http://localhost:8001/api/product/add", productData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("Product added to database successfully.");
+
         const response = await axios.get(
           "http://localhost:8001/api/product/getall"
         );
         setitems(response.data);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false); // Set loading to false after successful data fetch
       } catch (error) {
-        setError(error);
+        console.error("Error:", error);
+        setError(error); // Set error state if an error occurs
         setLoading(false); // Set loading to false in case of error
       }
     };
 
     fetchData();
   }, []);
-
   const handleAddToCart = () => {
     const newItem = {
-      productId: props.product.Id,
+      productId: props.product._id,
       name: props.product.name,
       price: props.product.price,
       image: props.product.image,
     };
+    console.log(newItem);
 
     // Send the new item to the backend
     axios
-      .post("http://localhost:8001/api/cart/add", newItem)
+      .post("http://localhost:8001/api/cart/add", { products: [newItem] })
       .then((response) => {
         console.log("Item added to cart successfully:", response.data);
         // Update the local cartItems state
@@ -57,26 +72,38 @@ const Item = (props) => {
 
   return (
     <div>
-      {items.map((item) => (
-        <div
-          key={item.Id}
-          className="max-w-xs rounded overflow-hidden shadow-md bg-white p-4 m-4"
-        >
-          <img className="w-full" src={item.image} alt={item.name} />
-          <div className="px-6 py-4">
-            <h2 className="font-bold text-xl mb-2">{item.name}</h2>
-            <p className="text-gray-700 text-base">{`Price: ${item.price}`}</p>
+      {items
+        .reduce((uniqueItems, item) => {
+          if (!uniqueItems.find((uniqueItem) => uniqueItem.Id === item.Id)) {
+            uniqueItems.push(item);
+          }
+          return uniqueItems;
+        }, [])
+        .map((uniqueItem) => (
+          <div
+            key={uniqueItem.Id}
+            className="max-w-xs rounded overflow-hidden shadow-md bg-white p-4 m-4"
+          >
+            <img
+              className="w-full"
+              src={uniqueItem.image}
+              alt={uniqueItem.name}
+            />
+
+            <div className="px-6 py-4">
+              <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
+              <p className="text-gray-700 text-base">{`Price: ${uniqueItem.price}`}</p>
+            </div>
+            <div className="px-6 py-4">
+              <button
+                onClick={handleAddToCart}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
-          <div className="px-6 py-4">
-            <button
-              onClick={handleAddToCart}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

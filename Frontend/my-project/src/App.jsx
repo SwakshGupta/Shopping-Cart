@@ -8,13 +8,13 @@ function App() {
   // Sample product data
   const products = [
     {
-      Id: "1",
+      Id: "4",
       name: "Product 1",
       price: 50,
       image: "https://via.placeholder.com/300",
     },
     {
-      Id: "2",
+      Id: "5",
       name: "Product 2",
       price: 70,
       image: "https://via.placeholder.com/300",
@@ -36,10 +36,9 @@ function App() {
 
 const Home = ({ products }) => (
   <div className="flex flex-wrap justify-center">
-    {products.map((product, index) => (
-      <Item key={index} product={product} />
+    {products.map((product) => (
+      <Item key={product.Id} product={product} />
     ))}
   </div>
 );
-
 export default App;
