@@ -17,10 +17,16 @@ const Navbar = () => {
             className="w-full px-3 py-2 rounded-full bg-gray-700 text-white outline-none"
           />
         </div>
+        {/* Add Product button */}
+        <button className="text-white text-lg mr-12">
+          <Link to="/AddProduct">Add Product</Link>
+        </button>
         {/* Cart button */}
-        <button className="text-white text-lg">
+        <button className="text-white text-lg mr-12">
           <Link to="/cart">Cart</Link>
         </button>
+        {/* Logout button */}
+        <button className="text-white text-lg">Logout</button>
       </div>
     </nav>
   );

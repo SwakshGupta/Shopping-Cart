@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Components/navbar";
 import Cart from "./Components/Shopping_Cart";
 import Item from "./Components/ProductCart";
+import Addproduct from "./Components/Addproduct";
 
 function App() {
   // Sample product data
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home products={products} />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/AddProduct" element={<Addproduct />} />
         </Routes>
       </Router>
     </div>

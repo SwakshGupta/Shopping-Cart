@@ -40,16 +40,15 @@ const Cart = () => {
       console.error("Error fetching cart items:", error);
     }
   };
-
   const removeFromCart = async (productId) => {
-    console.log(productId);
     try {
-      await axios.delete(`http://localhost:8001/api/cart/delete/${productId}`);
+      await axios.post(`http://localhost:8001/api/cart/delete/${productId}`);
 
-      // Remove the deleted product from cartItems
-      setCartItems(
-        cartItems.filter((item) => !item.products.includes(productId))
+      // Filter out the deleted product from cartItems
+      const updatedItems = cartItems.filter(
+        (item) => item.products && item.products.includes(productId)
       );
+      setCartItems(updatedItems);
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }

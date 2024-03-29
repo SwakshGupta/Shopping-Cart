@@ -70,7 +70,7 @@ const Item = (props) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-wrap justify-center">
       {items
         .reduce((uniqueItems, item) => {
           if (!uniqueItems.find((uniqueItem) => uniqueItem.Id === item.Id)) {
@@ -81,10 +81,10 @@ const Item = (props) => {
         .map((uniqueItem) => (
           <div
             key={uniqueItem.Id}
-            className="max-w-xs rounded overflow-hidden shadow-md bg-white p-4 m-4"
+            className="max-w-sm rounded overflow-hidden shadow-md bg-white m-4"
           >
             <img
-              className="w-full"
+              className="w-full h-64 object-cover"
               src={uniqueItem.image}
               alt={uniqueItem.name}
             />
@@ -95,7 +95,7 @@ const Item = (props) => {
             </div>
             <div className="px-6 py-4">
               <button
-                onClick={handleAddToCart}
+                onClick={() => handleAddToCart(uniqueItem._id)}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
               >
                 Add to Cart
