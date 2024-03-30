@@ -4,12 +4,13 @@ import Navbar from "./Components/navbar";
 import Cart from "./Components/Shopping_Cart";
 import Item from "./Components/ProductCart";
 import Addproduct from "./Components/Addproduct";
+import Home from "./Components/Home";
 
 function App() {
   // Sample product data
 
   return (
-    <div className="h-screen bg-black">
+    <div className="h-screen bg-stone-200">
       <Router>
         <Navbar />
         <Routes>

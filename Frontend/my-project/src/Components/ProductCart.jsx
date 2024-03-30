@@ -63,22 +63,22 @@ const Item = () => {
       {items.map((uniqueItem) => (
         <div
           key={uniqueItem.Id}
-          className="max-w-sm rounded overflow-hidden shadow-md bg-white m-4"
+          className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4"
         >
           <img
-            className="w-full h-64 object-cover"
+            className="w-full h-64 object-cover rounded-t-lg"
             src={uniqueItem.image}
             alt={uniqueItem.name}
           />
 
           <div className="px-6 py-4">
             <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
-            <p className="text-gray-700 text-base">{`Price: ${uniqueItem.price}`}</p>
+            <p className="text-gray-700 text-base">{`Price: $${uniqueItem.price}`}</p>
           </div>
-          <div className="px-6 py-4">
+          <div className="px-6 py-4 flex justify-center">
             <button
               onClick={() => handleAddToCart(uniqueItem)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              className="bg-black hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
             >
               Add to Cart
             </button>
