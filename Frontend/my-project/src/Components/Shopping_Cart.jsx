@@ -7,10 +7,15 @@ const Cart = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const { items } = useContext(ProductContext);
   const [cartProducts, setCartProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     fetchCartProducts();
   }, []);
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartProducts]);
 
   const fetchCartProducts = async () => {
     try {
@@ -40,6 +45,17 @@ const Cart = () => {
       console.error("Error fetching cart items:", error);
     }
   };
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    cartProducts.forEach((productData) => {
+      productData.forEach((product) => {
+        total += product.price;
+      });
+    });
+    setTotalPrice(total);
+  };
+
   const removeFromCart = async (productId) => {
     try {
       await axios.post(`http://localhost:8001/api/cart/delete/${productId}`);
@@ -52,6 +68,11 @@ const Cart = () => {
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
+  };
+
+  const proceedToPayment = () => {
+    // Implement your logic for proceeding to payment here
+    console.log("Proceeding to payment...");
   };
 
   return (
@@ -81,6 +102,16 @@ const Cart = () => {
           ));
         })}
       </ul>
+
+      <div className="mt-4">
+        <p className="text-xl font-bold">Total Price: ${totalPrice}</p>
+        <button
+          onClick={proceedToPayment}
+          className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+        >
+          Proceed to Payment
+        </button>
+      </div>
     </div>
   );
 };

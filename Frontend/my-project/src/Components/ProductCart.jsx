@@ -28,9 +28,18 @@ const Item = () => {
   }, []);
 
   const handleAddToCart = (product) => {
+    // Construct the data in the required format
+    const cartData = {
+      products: [
+        {
+          productId: product._id, // Assuming product._id contains the product ID
+        },
+      ],
+    };
+
     // Send the new item to the backend
     axios
-      .post("http://localhost:8001/api/cart/add", { products: [product] })
+      .post("http://localhost:8001/api/cart/add", cartData)
       .then((response) => {
         console.log("Item added to cart successfully:", response.data);
         // Update the local cartItems state
