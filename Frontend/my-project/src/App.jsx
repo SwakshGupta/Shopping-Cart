@@ -10,7 +10,7 @@ function App() {
   // Sample product data
 
   return (
-    <div className="h-screen bg-stone-200">
+    <div className="h-screen bg-gray-300">
       <Router>
         <Navbar />
         <Routes>
