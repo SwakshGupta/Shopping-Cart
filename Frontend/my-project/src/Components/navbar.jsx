@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ setSearchQuery }) => {
   const [searchQuery, setSearchQueryLocal] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchQueryLocal(query);
     setSearchQuery(query);
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
 
   return (
@@ -27,18 +32,48 @@ const Navbar = ({ setSearchQuery }) => {
             onChange={handleSearch}
           />
         </div>
-        {/* Add Product button */}
-        <button className="text-white text-lg mr-12 transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full">
-          <Link to="/AddProduct">Add Product</Link>
-        </button>
-        {/* Cart button */}
-        <button className="text-white text-lg mr-12 transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full">
-          <Link to="/cart">Cart</Link>
-        </button>
-        {/* Logout button */}
-        <button className="text-white text-lg transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full">
-          Logout
-        </button>
+        {/* Responsive menu button */}
+        <div className="relative">
+          <button
+            className="text-white text-lg transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full focus:outline-none"
+            onClick={toggleMenu}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          </button>
+          {/* Responsive menu dropdown */}
+          {showMenu && (
+            <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-10">
+              <Link
+                to="/AddProduct"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Add Product
+              </Link>
+              <Link
+                to="/cart"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Cart
+              </Link>
+              <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
