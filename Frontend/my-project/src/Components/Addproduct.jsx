@@ -14,6 +14,23 @@ const AddProduct = () => {
     setProductData({ ...productData, [name]: value });
   };
 
+  // Function to handle file input change and convert the image to base64 ..........................
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Get the first file selected by the user
+
+    if (file) {
+      const reader = new FileReader(); // Create a new FileReader object
+
+      // Define an onload event handler to handle file reading
+      reader.onload = () => {
+        const base64String = reader.result; // This is our base64 image
+        setProductData({ ...productData, image: base64String });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -84,17 +101,29 @@ const AddProduct = () => {
         </div>
         <div>
           <label htmlFor="image" className="block mb-2 font-semibold">
-            Image URL:
+            Image:
           </label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            value={productData.image}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
-            required
-          />
+          <div>
+            <label htmlFor="image" className="block mb-2 font-semibold"></label>
+            <label
+              htmlFor="fileInput"
+              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer"
+            >
+              Choose File
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              name="image"
+              onChange={handleFileChange}
+              className="hidden"
+              accept="image/*"
+              required
+            />
+            {productData.image && (
+              <span className="ml-2">{productData.image.name}</span>
+            )}
+          </div>
         </div>
         <button
           type="submit"
