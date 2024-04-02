@@ -16,7 +16,6 @@ const getall = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
 const AddCart = async (req, res) => {
   try {
     const { products } = req.body;
@@ -24,31 +23,34 @@ const AddCart = async (req, res) => {
     for (const productItem of products) {
       const { productId } = productItem;
 
-      if (!mongoose.Types.ObjectId.isValid(productId)) {
-        return res.status(400).json({ message: "Invalid productId format" });
-      }
+      // Find the product with the given productId
+      const product = await Product.findOne({ _id: productId });
 
-      const product = await Product.findById(productId);
-
+      // If product not found, return 404 error
       if (!product) {
         return res
           .status(404)
-          .json({ message: `Product with ID ${productId} not found` });
+          .json({ message: `Product with Id ${productId} not found` });
       }
 
+      // Find the cart (assuming there's only one cart for now)
       let cart = await Cart.findOne({});
 
+      // If cart doesn't exist, create a new cart with the product
       if (!cart) {
         cart = new Cart({
-          products: [new mongoose.Types.ObjectId(product._id)],
+          products: [product._id],
         });
       } else {
-        cart.products.push(new mongoose.Types.ObjectId(product._id));
+        // If cart exists, push the productId into the cart
+        cart.products.push(product._id);
       }
 
+      // Save the updated cart
       await cart.save();
     }
 
+    // Return success message
     res.json({ message: "Products added to cart successfully" });
   } catch (error) {
     console.error("Error adding item(s) to cart:", error);
@@ -57,16 +59,28 @@ const AddCart = async (req, res) => {
 };
 
 const DeleteCart = async (req, res) => {
-  const id = req.params.id;
+  const { productId } = req.body;
 
   try {
-    const deleteProduct = await Cart.findByIdAndDelete(id);
+    const cart = await Cart.findOne();
 
-    if (!deleteProduct) {
-      return res.status(404).json({ message: "Product not found" });
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
     }
 
-    return res.status(200).json({ message: "Product deleted successfully" });
+    // Find the index of the product with the given productId
+    const index = cart.products.findIndex(
+      (product) => product.productId === productId
+    );
+
+    // If the product with the given productId is found, remove it from the products array
+    if (index !== -1) {
+      cart.products.splice(index, 1);
+      await cart.save();
+      return res.status(200).json({ message: "Product deleted successfully" });
+    } else {
+      return res.status(404).json({ message: "Product not found in the cart" });
+    }
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
@@ -90,9 +104,24 @@ const Getbyid = async (req, res) => {
   }
 };
 
+const DeleteAllCartItems = async (req, res) => {
+  try {
+    // Delete all items from the cart
+    await Cart.deleteMany({});
+
+    return res
+      .status(200)
+      .json({ message: "All items deleted from cart successfully" });
+  } catch (error) {
+    console.error("Error deleting items from cart:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   getall,
   AddCart,
   DeleteCart,
   Getbyid,
+  DeleteAllCartItems,
 };

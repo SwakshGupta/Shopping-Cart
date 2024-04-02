@@ -7,6 +7,7 @@ const {
   Addproduct,
   DeleteProduct,
   Getbyid,
+  deleteAllProducts,
 } = require("../controllers/Product");
 
 const router = Router();
@@ -19,5 +20,6 @@ router.post("/add", Addproduct);
 router.post("/delete/:id", DeleteProduct);
 router.get("/getall", getall);
 router.get("/get/:id", Getbyid);
+router.post("/deleteall", deleteAllProducts);
 
 module.exports = router;

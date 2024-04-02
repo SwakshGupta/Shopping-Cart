@@ -7,6 +7,7 @@ const ProductSchema = new Schema(
     Id: {
       type: String,
       unique: true,
+      required: true,
     },
 
     name: {

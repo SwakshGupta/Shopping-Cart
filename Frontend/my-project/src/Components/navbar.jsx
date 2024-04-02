@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ setSearchQuery }) => {
+  const [searchQuery, setSearchQueryLocal] = useState("");
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQueryLocal(query);
+    setSearchQuery(query);
+  };
+
   return (
     <nav className="bg-lime-700 p-4 shadow-lg">
       <div className="flex items-center justify-between">
@@ -10,11 +18,13 @@ const Navbar = () => {
           <Link to="/">Home</Link>
         </button>
         {/* Search bar */}
-        <div className="w-1/2 mx-auto">
+        <div className="flex items-center w-1/2 mx-auto">
           <input
             type="text"
             placeholder="Search..."
             className="w-full px-3 py-2 rounded-full bg-black text-white outline-none"
+            value={searchQuery}
+            onChange={handleSearch}
           />
         </div>
         {/* Add Product button */}

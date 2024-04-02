@@ -3,11 +3,13 @@ import axios from "axios";
 import { ProductContext } from "../context/context";
 import { CartContext } from "../context/Cart";
 
-const Item = () => {
+const Item = ({ searchQuery }) => {
+  // extracting the search query from the app.jsx and then suisng the filter function to filter the data according to the query
   const { items, setitems } = useContext(ProductContext);
   const { cartItems, setCartItems } = useContext(CartContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,33 +18,39 @@ const Item = () => {
           "http://localhost:8001/api/product/getall"
         );
         setitems(response.data);
-        setLoading(false); // Set loading to false after successful data fetch
+        setLoading(false);
       } catch (error) {
         console.error("Error:", error);
-        setError(error); // Set error state if an error occurs
-        setLoading(false); // Set loading to false in case of error
+        setError(error);
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const filtered = items.filter(
+      (
+        item // this is the filter function which is running to filter my product cart
+      ) => item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredItems(filtered);
+  }, [searchQuery, items]);
+
   const handleAddToCart = (product) => {
-    // Construct the data in the required format
     const cartData = {
       products: [
         {
-          productId: product._id, // Assuming product._id contains the product ID
+          productId: product._id,
         },
       ],
     };
 
-    // Send the new item to the backend
     axios
       .post("http://localhost:8001/api/cart/add", cartData)
       .then((response) => {
         console.log("Item added to cart successfully:", response.data);
-        // Update the local cartItems state
         setCartItems([...cartItems, product]);
       })
       .catch((error) => {
@@ -60,10 +68,10 @@ const Item = () => {
 
   return (
     <div className="flex flex-wrap justify-center">
-      {items.map((uniqueItem) => (
+      {filteredItems.map((uniqueItem) => (
         <div
           key={uniqueItem.Id}
-          className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4"
+          className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4 transform hover:scale-105 transition duration-300"
         >
           <img
             className="w-full h-64 object-cover rounded-t-lg"

@@ -1,6 +1,12 @@
 const { Router } = require("express");
 
-const { getall, AddCart, DeleteCart, Getbyid } = require("../controllers/cart");
+const {
+  getall,
+  AddCart,
+  DeleteCart,
+  Getbyid,
+  DeleteAllCartItems,
+} = require("../controllers/cart");
 
 const router = Router();
 
@@ -12,5 +18,6 @@ router.post("/add", AddCart);
 router.post("/delete/:id", DeleteCart);
 router.get("/getall", getall);
 router.get("/get/:id", Getbyid);
+router.post("/deleteall", DeleteAllCartItems);
 
 module.exports = router;

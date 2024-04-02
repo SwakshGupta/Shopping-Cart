@@ -73,10 +73,23 @@ const Getbyid = async (req, res) => {
     return res.status(500).json({ messege: "Internal server error " });
   }
 };
+const deleteAllProducts = async (req, res) => {
+  try {
+    await Product.deleteMany({});
+
+    return res
+      .status(200)
+      .json({ message: "All products deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 module.exports = {
   getall,
   Addproduct,
   DeleteProduct,
+  deleteAllProducts,
   Getbyid,
 };
