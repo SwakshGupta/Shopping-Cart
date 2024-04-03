@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const router = require("./Routes/Product");
 const Router = require("./Routes/cart");
+const User = require("./Routes/User");
 
 const app = express();
 
@@ -26,5 +27,6 @@ mongoose
 
 app.use("/api/product", router);
 app.use("/api/cart", Router);
+app.use("/api/User", User);
 
 app.listen(PORT, () => console.log(`Server has been started at PORT ${PORT}`));
