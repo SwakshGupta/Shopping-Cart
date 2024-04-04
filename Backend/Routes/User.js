@@ -11,10 +11,10 @@ const router = Router();
 
 router.post("/add", Createuser);
 
-router.get("/", getAll);
+router.get("/getall", getAll);
 
 router.get("/:id", getbyid);
 
-router.post("/:id", DeleteUser);
+router.post("/delete/:id", DeleteUser);
 
 module.exports = router;

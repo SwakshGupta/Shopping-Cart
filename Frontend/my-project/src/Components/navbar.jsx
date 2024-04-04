@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import axios from "axios";
 
 const Navbar = ({ setSearchQuery }) => {
   const [searchQuery, setSearchQueryLocal] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+
+  const Navigate = useNavigate();
 
   const handleSearch = (e) => {
     const query = e.target.value;
@@ -13,6 +17,22 @@ const Navbar = ({ setSearchQuery }) => {
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleLogout = () => {
+    // This is the logout button
+    // Perform logout logic here
+    axios
+      .get("http://localhost:8001/api/User/logout")
+      .then(() => {
+        console.log("Logged out successfully");
+        // Redirect to the homepage after successful logout
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error);
+        // Handle logout failure, if necessary
+      });
   };
 
   return (
@@ -68,7 +88,10 @@ const Navbar = ({ setSearchQuery }) => {
               >
                 Cart
               </Link>
-              <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <button
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             </div>

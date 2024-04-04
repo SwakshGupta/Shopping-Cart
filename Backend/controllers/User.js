@@ -1,6 +1,8 @@
 const Signup = require("../models/User");
 const { registerUser } = require("../controllers/auth");
 
+// these are going to be controllers fundtion of the user.sj
+
 const Createuser = async (req, res, next) => {
   const { Email, password } = req.body;
 

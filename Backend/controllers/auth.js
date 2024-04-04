@@ -1,40 +1,47 @@
-const login = require("../models/User");
-const JWT = require("jsonwebtoken");
+// auth.js
+const Signup = require("../models/User");
 const bcrypt = require("bcryptjs");
-const createError = require("http-errors"); // Import createError for handling HTTP errors
+const JWT = require("jsonwebtoken");
+const createError = require("http-errors");
 
 const secretkey = "kTJD2y4On/6SjMEWOLFb6QmggHIE3jkVCX1TxI7QMV4=";
 
 const registerUser = async (req, res, next) => {
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(req.body.password, salt);
+  const { Email, password } = req.body;
 
   try {
-    const newUser = new login({
-      name: req.body.name,
+    // Hash the password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+
+    // Create a new user with the hashed password
+    const newUser = new Signup({
+      Email,
       password: hash,
     });
 
+    // Save the user to the database
     await newUser.save();
-    res.status(200).json({ newUser });
+
+    return res.status(201).json({ user: newUser });
   } catch (err) {
     console.error(err);
-    // Use next to pass the error to Express's error handling middleware
     next(err);
   }
 };
 
 const loginUser = async (req, res, next) => {
-  const { name } = req.body;
+  const { Email } = req.body; // here we are getting the Email from the req.body
+
   try {
-    const user = await login.findOne({ name });
+    const user = await Signup.findOne({ Email });
 
     if (!user) {
-      // Use createError to create HTTP error responses
       return next(createError(404, "User not found"));
     }
 
     const isPasswordCorrect = await bcrypt.compare(
+      // here we are checking whether our password is correct or not
       req.body.password,
       user.password
     );
@@ -43,11 +50,11 @@ const loginUser = async (req, res, next) => {
       return next(createError(400, "Wrong username or password"));
     }
 
-    const token = JWT.sign({ id: user._id }, secretkey);
+    const token = JWT.sign({ id: user._id }, secretkey); // if the password is correct then a token is generated
 
     const { password, ...other } = user._doc;
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, { httpOnly: true }) // access_token is the name of cookie
       .status(200)
       .json(other);
   } catch (err) {
