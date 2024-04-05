@@ -78,9 +78,22 @@ const getbyid = async (req, res) => {
   }
 };
 
+const DeleteAllUsers = async (req, res) => {
+  try {
+    // Delete all users from the database
+    await Signup.deleteMany();
+
+    return res.status(200).json({ message: "All users deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   Createuser,
   DeleteUser,
   getAll,
   getbyid,
+  DeleteAllUsers,
 };

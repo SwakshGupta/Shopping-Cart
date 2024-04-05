@@ -34,3 +34,5 @@ app.use("/api/User", login);
 app.use("/api/User", logout);
 
 app.listen(PORT, () => console.log(`Server has been started at PORT ${PORT}`));
+
+//  Passport.js simplifies the process of implementing authentication in your Node.js application, providing a robust and customizable solution for user authentication and authorization.
