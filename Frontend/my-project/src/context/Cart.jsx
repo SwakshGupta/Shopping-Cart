@@ -2,7 +2,7 @@
 
 import React, { createContext, useState } from "react";
 
-export const CartContext = createContext();
+export const CartContext = createContext(); // This is store where all the data of cart will be stored
 
 export const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);

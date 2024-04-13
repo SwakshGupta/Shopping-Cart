@@ -1,3 +1,5 @@
+// this is the cart model it contains the prouct id in its schema from that product we will  add product to the cart
+
 const mongoose = require("mongoose");
 
 const cartSchema = new mongoose.Schema(
@@ -6,7 +8,7 @@ const cartSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
-        required: true, // This is done to add a porduct to the cart
+        required: true, // ref of product model is given
       },
     ],
   },
@@ -16,3 +18,5 @@ const cartSchema = new mongoose.Schema(
 const Cart = mongoose.model("Cart", cartSchema);
 
 module.exports = Cart;
+
+// after this i will give reference of user model so that we can integrate the user model in the cart model

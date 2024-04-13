@@ -23,7 +23,7 @@ const Navbar = ({ setSearchQuery }) => {
     // This is the logout button
     // Perform logout logic here
     axios
-      .get("http://localhost:8001/api/User/logout")
+      .get("http://localhost:8006/api/User/logout")
       .then(() => {
         console.log("Logged out successfully");
         // Redirect to the homepage after successful logout

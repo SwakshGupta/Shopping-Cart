@@ -18,13 +18,12 @@ const getall = async (req, res) => {
 };
 const AddCart = async (req, res) => {
   try {
-    const { products } = req.body;
+    const { products } = req.body; // Destructures the product property from the request body.
 
     for (const productItem of products) {
-      const { productId } = productItem;
+      const { productId } = productItem; // here we run for loop over each product item of product and through that we will retrive our product id
 
-      // Find the product with the given productId
-      const product = await Product.findOne({ _id: productId });
+      const product = await Product.findOne({ _id: productId }); // Find the product though the prodct id
 
       // If product not found, return 404 error
       if (!product) {
@@ -33,8 +32,7 @@ const AddCart = async (req, res) => {
           .json({ message: `Product with Id ${productId} not found` });
       }
 
-      // Find the cart (assuming there's only one cart for now)
-      let cart = await Cart.findOne({});
+      let cart = await Cart.findOne({}); // Find the cart (assuming there's only one cart for now)
 
       // If cart doesn't exist, create a new cart with the product
       if (!cart) {
@@ -59,10 +57,10 @@ const AddCart = async (req, res) => {
 };
 
 const DeleteCart = async (req, res) => {
-  const { productId } = req.body;
+  const { productId } = req.body; // retrive the product id from req.body
 
   try {
-    const cart = await Cart.findOne();
+    const cart = await Cart.findOne(); // searches for the cart in the data base
 
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
@@ -70,12 +68,12 @@ const DeleteCart = async (req, res) => {
 
     // Find the index of the product with the given productId
     const index = cart.products.findIndex(
-      (product) => product.productId === productId
+      (product) => product.productId === productId // from the product id which is extrated from req.body we will get the index
     );
 
     // If the product with the given productId is found, remove it from the products array
     if (index !== -1) {
-      cart.products.splice(index, 1);
+      cart.products.splice(index, 1); // splice method is used to remove the product from the array
       await cart.save();
       return res.status(200).json({ message: "Product deleted successfully" });
     } else {

@@ -1,3 +1,5 @@
+// This is our user model it contains Email and password
+
 const { Schema, model } = require("mongoose");
 
 const Signup = new Schema(

@@ -21,7 +21,7 @@ function Login({ setIsLoggedIn }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8001/api/User/login",
+        "http://localhost:8006/api/User/login",
         {
           Email: email,
           password: password,

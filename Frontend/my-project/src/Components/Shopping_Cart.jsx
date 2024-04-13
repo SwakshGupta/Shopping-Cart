@@ -19,7 +19,7 @@ const Cart = () => {
 
   const fetchCartProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:8001/api/cart/getall");
+      const response = await axios.get("http://localhost:8006/api/cart/getall");
       const cartItems = response.data;
       const products = [];
 

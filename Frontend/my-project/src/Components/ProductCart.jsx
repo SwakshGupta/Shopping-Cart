@@ -15,7 +15,7 @@ const Item = ({ searchQuery }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8001/api/product/getall"
+          "http://localhost:8006/api/product/getall"
         );
         setitems(response.data);
         setLoading(false);
@@ -48,7 +48,7 @@ const Item = ({ searchQuery }) => {
     };
 
     axios
-      .post("http://localhost:8001/api/cart/add", cartData)
+      .post("http://localhost:8006/api/cart/add", cartData)
       .then((response) => {
         console.log("Item added to cart successfully:", response.data);
         setCartItems([...cartItems, product]);

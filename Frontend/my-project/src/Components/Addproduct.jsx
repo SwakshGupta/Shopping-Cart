@@ -7,6 +7,7 @@ const AddProduct = () => {
     name: "",
     price: "",
     image: "",
+    category: "", // Add category to the state
   });
 
   const handleChange = (e) => {
@@ -14,19 +15,15 @@ const AddProduct = () => {
     setProductData({ ...productData, [name]: value });
   };
 
-  // Function to handle file input change and convert the image to base64 ..........................
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the first file selected by the user
+    const file = event.target.files[0];
 
     if (file) {
-      const reader = new FileReader(); // Create a new FileReader object
-
-      // Define an onload event handler to handle file reading
+      const reader = new FileReader();
       reader.onload = () => {
-        const base64String = reader.result; // This is our base64 image
+        const base64String = reader.result;
         setProductData({ ...productData, image: base64String });
       };
-
       reader.readAsDataURL(file);
     }
   };
@@ -34,19 +31,18 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send POST request to save product data
       const response = await axios.post(
-        "http://localhost:8001/api/product/add",
+        "http://localhost:8006/api/product/add",
         productData
       );
       console.log("Product added successfully:", response.data);
 
-      // Reset the form fields after successful submission
       setProductData({
         Id: "",
         name: "",
         price: "",
         image: "",
+        category: "", // Reset category after successful submission
       });
     } catch (error) {
       console.error("Error adding product:", error);
@@ -124,6 +120,21 @@ const AddProduct = () => {
               <span className="ml-2">{productData.image.name}</span>
             )}
           </div>
+        </div>
+        {/* Add category input */}
+        <div>
+          <label htmlFor="category" className="block mb-2 font-semibold">
+            Category:
+          </label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            value={productData.category}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+            required
+          />
         </div>
         <button
           type="submit"

@@ -1,4 +1,4 @@
-// In your passportConfig.js file
+// Currently i have intigrated this passport.js passportjs is a library which is use for user authentication
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;

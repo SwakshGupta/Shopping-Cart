@@ -10,7 +10,7 @@ const logout = require("./Routes/logout");
 
 const app = express();
 
-const PORT = 8001;
+const PORT = 8006;
 const URI = "mongodb://127.0.0.1:27017/CART";
 
 // middlewwares

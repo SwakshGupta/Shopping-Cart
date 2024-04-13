@@ -17,3 +17,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 // here we have wrapped our children components inside both the context api
+
+// here we are using two context api to manage the state of the is the product context api and other is cart context api
