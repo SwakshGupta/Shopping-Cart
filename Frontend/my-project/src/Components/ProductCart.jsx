@@ -4,12 +4,13 @@ import { ProductContext } from "../context/context";
 import { CartContext } from "../context/Cart";
 
 const Item = ({ searchQuery }) => {
-  // extracting the search query from the app.jsx and then suisng the filter function to filter the data according to the query
-  const { items, setitems } = useContext(ProductContext);
+  const { items, setItems, sortOrder, setSortOrder } =
+    useContext(ProductContext);
   const { cartItems, setCartItems } = useContext(CartContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [showSortButtons, setShowSortButtons] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +18,7 @@ const Item = ({ searchQuery }) => {
         const response = await axios.get(
           "http://localhost:8006/api/product/getall"
         );
-        setitems(response.data);
+        setItems(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error:", error);
@@ -27,16 +28,22 @@ const Item = ({ searchQuery }) => {
     };
 
     fetchData();
-  }, []);
+  }, [setItems]);
 
   useEffect(() => {
-    const filtered = items.filter(
-      (
-        item // this is the filter function which is running to filter my product cart
-      ) => item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = items.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setFilteredItems(filtered);
-  }, [searchQuery, items]);
+
+    let sortedItems = [...filtered]; // here is the logic to sort the items
+    if (sortOrder === "lowToHigh") {
+      sortedItems.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === "highToLow") {
+      sortedItems.sort((a, b) => b.price - a.price);
+    }
+
+    setFilteredItems(sortedItems);
+  }, [searchQuery, items, sortOrder]);
 
   const handleAddToCart = (product) => {
     const cartData = {
@@ -58,6 +65,15 @@ const Item = ({ searchQuery }) => {
       });
   };
 
+  const handleSort = (order) => {
+    setSortOrder(order);
+    setShowSortButtons(false);
+  };
+
+  const toggleSortButtons = () => {
+    setShowSortButtons(!showSortButtons);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -67,32 +83,75 @@ const Item = ({ searchQuery }) => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {filteredItems.map((uniqueItem) => (
-        <div
-          key={uniqueItem.Id}
-          className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4 transform hover:scale-105 transition duration-300"
+    <div className="mt-4">
+      <div className="relative">
+        <button
+          className="bg-black hover:bg-green-500 text-white font-bold py-2 px-4 rounded inline-flex items-center z-10 transition duration-300 ease-in-out transform hover:scale-10"
+          onClick={toggleSortButtons}
         >
-          <img
-            className="w-full h-64 object-cover rounded-t-lg"
-            src={uniqueItem.image}
-            alt={uniqueItem.name}
-          />
-
-          <div className="px-6 py-4">
-            <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
-            <p className="text-gray-700 text-base">{`Price: $${uniqueItem.price}`}</p>
-          </div>
-          <div className="px-6 py-4 flex justify-center">
+          Sort
+          <svg
+            className="w-4 h-4 ml-2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 12a2 2 0 100-4 2 2 0 000 4z"
+              clipRule="evenodd"
+            />
+            <path
+              fillRule="evenodd"
+              d="M2 10a2 2 0 114 0 2 2 0 01-4 0zM14 10a2 2 0 114 0 2 2 0 01-4 0zM6 10a2 2 0 114 0 2 2 0 01-4 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+        {showSortButtons && (
+          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
             <button
-              onClick={() => handleAddToCart(uniqueItem)}
-              className="bg-black hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+              onClick={() => handleSort("lowToHigh")}
+              className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-white transition duration-300"
             >
-              Add to Cart
+              Low to High
+            </button>
+            <button
+              onClick={() => handleSort("highToLow")}
+              className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-white transition duration-300"
+            >
+              High to Low
             </button>
           </div>
-        </div>
-      ))}
+        )}
+      </div>
+      <div className="flex flex-wrap justify-center relative z-0">
+        {filteredItems.map((uniqueItem) => (
+          <div
+            key={uniqueItem.Id}
+            className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4 transform hover:scale-105 transition duration-300"
+          >
+            <img
+              className="w-full h-64 object-cover rounded-t-lg"
+              src={uniqueItem.image}
+              alt={uniqueItem.name}
+            />
+
+            <div className="px-6 py-4">
+              <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
+              <p className="text-gray-700 text-base">{`Price: $${uniqueItem.price}`}</p>
+            </div>
+            <div className="px-6 py-4 flex justify-center">
+              <button
+                onClick={() => handleAddToCart(uniqueItem)}
+                className="bg-black hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                Add to Wishlist
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

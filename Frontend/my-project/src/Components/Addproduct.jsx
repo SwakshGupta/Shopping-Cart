@@ -126,15 +126,26 @@ const AddProduct = () => {
           <label htmlFor="category" className="block mb-2 font-semibold">
             Category:
           </label>
-          <input
-            type="text"
+          <select
             id="category"
             name="category"
             value={productData.category}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
             required
-          />
+          >
+            <option value="">Select Category</option>
+            <option value="keyboard">Keyboard</option>
+            <option value="mouse">Mouse</option>
+            <option value="monitor">Monitors</option>
+            <option value="monitor">Laptops/PCs</option>
+            <option value="monitor">Audio</option>
+            <option value="monitor">Consoles</option>
+            <option value="monitor">Controllers</option>
+            <option value="monitor">MousePads</option>
+            <option value="monitor">OtherItems</option>
+            {/* Add more options as needed */}
+          </select>
         </div>
         <button
           type="submit"

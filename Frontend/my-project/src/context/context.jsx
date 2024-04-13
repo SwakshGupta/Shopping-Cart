@@ -1,16 +1,24 @@
 // here we will define our context and our provider
+import React, { createContext, useState } from "react";
 
-import { createContext, useState } from "react";
-
-export const ProductContext = createContext(); // store for the products
+export const ProductContext = createContext();
 
 export const ProductProvider = (props) => {
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState([]);
+  const [sortOrder, setSortOrder] = useState(""); // This state is added for sorting purpose
+  const [homeproduct, setHomeProduct] = useState([]);
 
-  const cartValue = { items, setitems };
+  const contextValue = {
+    items,
+    setItems,
+    sortOrder,
+    setSortOrder,
+    homeproduct,
+    setHomeProduct,
+  };
 
   return (
-    <ProductContext.Provider value={cartValue}>
+    <ProductContext.Provider value={contextValue}>
       {props.children}
     </ProductContext.Provider>
   );

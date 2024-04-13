@@ -7,11 +7,14 @@ const Router = require("./Routes/cart");
 const User = require("./Routes/User");
 const login = require("./Routes/login");
 const logout = require("./Routes/logout");
+const Home_product = require("./Routes/Home_product");
 
 const app = express();
 
 const PORT = 8006;
-const URI = "mongodb://127.0.0.1:27017/CART";
+
+const uri =
+  "mongodb+srv://swakshgupta834:slogar123@shoppingcart.w39msy4.mongodb.net/?retryWrites=true&w=majority&appName=ShoppingCart";
 
 // middlewwares
 
@@ -21,7 +24,7 @@ app.use(express.json()); //This will help to parse the json file and make it ava
 app.use(express.urlencoded({ extended: false })); // this middle ware is  use to parse the form data becuase data coming from the fornt end is JSON
 
 mongoose
-  .connect(URI)
+  .connect(uri)
   .then(() => console.log("Database has been connected to the server"))
   .catch((err) => console.error("Error connecting the database", err));
 
@@ -29,6 +32,7 @@ mongoose
 
 app.use("/api/product", router);
 app.use("/api/cart", Router);
+app.use("/api/home", Home_product);
 app.use("/api/User", User);
 app.use("/api/User", login);
 app.use("/api/User", logout);
