@@ -3,8 +3,8 @@ const { Schema, model } = require("mongoose");
 const ProductPageSchema = new Schema(
   {
     productId: {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
+      type: String,
+
       required: true,
     },
     title: {

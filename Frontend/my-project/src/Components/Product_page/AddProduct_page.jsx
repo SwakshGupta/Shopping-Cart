@@ -23,7 +23,25 @@ const Add_Product_Page = () => {
         file,
         preview: URL.createObjectURL(file),
       }));
-      setProductData({ ...productData, images: imageArray });
+
+      // Read each file as base64 and store it in the state
+      Promise.all(
+        imageArray.map(
+          (imageObj) =>
+            new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                resolve({ ...imageObj, base64String: e.target.result });
+              };
+              reader.onerror = (error) => reject(error);
+              reader.readAsDataURL(imageObj.file);
+            })
+        )
+      )
+        .then((imagesWithBase64) => {
+          setProductData({ ...productData, images: imagesWithBase64 });
+        })
+        .catch((error) => console.error("Error reading file:", error));
     }
   };
 

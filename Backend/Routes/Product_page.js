@@ -1,23 +1,19 @@
 const { Router } = require("express");
 
-const {
-  getall,
-  Addproduct,
-  DeleteProduct,
-  Getbyid,
-  deleteAllProducts,
-} = require("../controllers/ProductPage");
-
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("hello from the server side");
-});
+const {
+  getAll,
+  addProduct,
+  deleteProduct,
+  deleteAllProducts,
+  getById,
+} = require("../controllers/ProductPage");
 
-router.post("/add", Addproduct);
-router.post("/delete/:id", DeleteProduct);
-router.get("/getall", getall);
-router.get("/get/:id", Getbyid);
-router.post("/deleteall", deleteAllProducts);
+router.get("/", getAll);
+router.post("/add", addProduct);
+router.delete("/:id", deleteProduct);
+router.delete("/deleteAll", deleteAllProducts);
+router.get("/:id", getById);
 
 module.exports = router;
