@@ -39,7 +39,7 @@ function Home() {
               className="bg-white rounded-md shadow-md overflow-hidden transform transition-transform hover:scale-105"
             >
               <Link
-                to={`/category/${product.category}`}
+                to={`/Product/${product.category}`}
                 onClick={() => setCategory(product.category)}
               >
                 <img
@@ -50,7 +50,10 @@ function Home() {
               </Link>
 
               <div className="p-4">
-                <Link to={`/category/${product.category}`}>
+                <Link
+                  to={`/Product/${product.category}`}
+                  onClick={() => setCategory(product.category)}
+                >
                   <h3 className="text-lg font-semibold mb-2">
                     {product.category}
                   </h3>

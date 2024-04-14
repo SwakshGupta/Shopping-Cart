@@ -1,0 +1,32 @@
+ ............................HOW THE SEARCH BAR IS WORKING IN THE NAVBAR  ........................
+
+1. So i have defined a set  query state in the cart context it is going to navbar serach box  where i have defined a function to change  the state 
+
+2. when the state is changed it is stored in context which is then used by the Product cart component it uses use effect hook with the search query state so with every change in the search query the component gets rerenderd
+
+
+
+...............................HOW THE CATEGORY OF THE PRODUCT IS WORKING .............................
+
+
+1. So the categories are rendered in the home page so i have defined a categry state in my prpoduct context api . The categories are shown in the form of cards so when a card is clicked the state of categories are changed in the context api 
+
+2. The context api categories state obtain the same categry of product which is clicked and also the website is redirected to the product pag eaccording to the category 
+
+3. Now the product page will use the category from the url to filter its item according to the category with the help of conditional rendering 
+
+4. Now to make the route of product dynamic in APP.JSX file i am using category state to make the route of the product dynamic 
+
+
+..............................HOW THE SORTING IN THE PRODUCT PAGE IS WORKING.....................................
+
+
+
+1. Again we have defined the sorting state in the product context api which was actually not needed since use state hook was more than enough to sort the things 
+
+2. In the product cart component we have the sorting button which has two button inside to sort items from low to high or from high to low 
+
+3. To sort the items  i have imolemented the sorting function which  is sorting the products according  to the price use chat gpt to explain how that thing is actually working 
+
+
+

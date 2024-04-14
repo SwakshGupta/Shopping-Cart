@@ -1,17 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 import { ProductContext } from "../context/context";
 import { CartContext } from "../context/Cart";
 
-const Item = ({}) => {
+const Item = () => {
   const { items, setItems, sortOrder, setSortOrder } =
     useContext(ProductContext);
-  const { cartItems, setCartItems, searchQuery, setSearchQuery } =
-    useContext(CartContext);
+  const { cartItems, setCartItems, searchQuery } = useContext(CartContext); // all  the context
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredItems, setFilteredItems] = useState([]);
   const [showSortButtons, setShowSortButtons] = useState(false);
+  const location = useLocation();
+  const category = location.pathname.split("/")[2]; // Extract category from URL params
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +34,8 @@ const Item = ({}) => {
   }, [setItems]);
 
   useEffect(() => {
-    const filtered = items.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = items.filter(
+      (item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()) // here is the code for searching items
     );
 
     let sortedItems = [...filtered]; // here is the logic to sort the items
@@ -43,8 +45,12 @@ const Item = ({}) => {
       sortedItems.sort((a, b) => b.price - a.price);
     }
 
-    setFilteredItems(sortedItems);
-  }, [searchQuery, items, sortOrder]);
+    // Filter items by category this category is obtained from the url
+    const categoryFilteredItems = category
+      ? sortedItems.filter((item) => item.category === category)
+      : sortedItems;
+    setFilteredItems(categoryFilteredItems);
+  }, [searchQuery, items, sortOrder, category]);
 
   const handleAddToCart = (product) => {
     const cartData = {

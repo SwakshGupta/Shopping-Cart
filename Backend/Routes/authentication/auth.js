@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { loginUser } = require("../controllers/auth"); // Import registerUser and loginUser separately
+const { loginUser } = require("../../controllers/auth"); // Import registerUser and loginUser separately
 const router = Router();
 
 router.post("/login", loginUser); // when the user login then a  token is generated which is given to the user in the frm of cookie

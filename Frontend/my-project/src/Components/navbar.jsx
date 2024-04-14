@@ -9,14 +9,10 @@ const Navbar = () => {
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-  };
+  }; // For the searching purpose the state is changing  when we are writing anything on the search bar
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
-  };
-
-  const handleLogout = () => {
-    // Logout logic
   };
 
   return (
@@ -67,12 +63,6 @@ const Navbar = () => {
               >
                 Wishlist
               </Link>
-              <button
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
             </div>
           )}
         </div>
