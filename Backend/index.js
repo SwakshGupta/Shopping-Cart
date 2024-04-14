@@ -12,9 +12,8 @@ const Home_product = require("./Routes/Home_product");
 const app = express();
 
 const PORT = 8006;
-
 const uri =
-  "mongodb+srv://swakshgupta834:slogar123@shoppingcart.w39msy4.mongodb.net/?retryWrites=true&w=majority&appName=ShoppingCart";
+  "mongodb+srv://swakshgupta:slogar123@cluster0.a1t2bg6.mongodb.net/shopping_cart?retryWrites=true&w=majority&appName=Cluster0";
 
 // middlewwares
 
