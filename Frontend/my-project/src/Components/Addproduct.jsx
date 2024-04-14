@@ -138,12 +138,15 @@ const AddProduct = () => {
             <option value="keyboard">Keyboard</option>
             <option value="mouse">Mouse</option>
             <option value="monitor">Monitors</option>
-            <option value="monitor">Laptops/PCs</option>
-            <option value="monitor">Audio</option>
-            <option value="monitor">Consoles</option>
-            <option value="monitor">Controllers</option>
-            <option value="monitor">MousePads</option>
-            <option value="monitor">OtherItems</option>
+            <option value="Laptop/Pcs">Laptops/PCs</option>
+            <option value="Audio">Audio</option>
+            <option value="Consoles">Consoles</option>
+            <option value="Controllers">Controllers</option>
+            <option value="MousePads">MousePads</option>
+            <option value="Phone">Phone</option>
+            <option value="Speakers">Speakers</option>
+            <option value="GamingBag">GamingBag</option>
+            <option value="OtherItems">OtherItems</option>
             {/* Add more options as needed */}
           </select>
         </div>

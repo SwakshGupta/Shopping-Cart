@@ -8,15 +8,13 @@ import Home from "./Components/Home/Home";
 import Add_Home_Product from "./Components/Home/Add_Home";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <div className="h-screen bg-gray-300">
       <Router>
-        <Navbar setSearchQuery={setSearchQuery} />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Product" element={<Item searchQuery={searchQuery} />} />
+          <Route path="/Product" element={<Item />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/AddProduct" element={<Addproduct />} />
           <Route path="/Add_Home_Product" element={<Add_Home_Product />} />

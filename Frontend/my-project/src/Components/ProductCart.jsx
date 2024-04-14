@@ -3,10 +3,11 @@ import axios from "axios";
 import { ProductContext } from "../context/context";
 import { CartContext } from "../context/Cart";
 
-const Item = ({ searchQuery }) => {
+const Item = ({}) => {
   const { items, setItems, sortOrder, setSortOrder } =
     useContext(ProductContext);
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, searchQuery, setSearchQuery } =
+    useContext(CartContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -139,7 +140,7 @@ const Item = ({ searchQuery }) => {
 
             <div className="px-6 py-4">
               <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
-              <p className="text-gray-700 text-base">{`Price: $${uniqueItem.price}`}</p>
+              <p className="text-gray-700 text-base">{`Price: ${uniqueItem.price}`}</p>
             </div>
             <div className="px-6 py-4 flex justify-center">
               <button

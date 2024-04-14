@@ -58,7 +58,7 @@ const Cart = () => {
 
   const removeFromCart = async (productId) => {
     try {
-      await axios.post(`http://localhost:8001/api/cart/delete/${productId}`);
+      await axios.post(`http://localhost:8006/api/cart/delete/${productId}`);
 
       // Filter out the deleted product from cartItems
       const updatedItems = cartItems.filter(
@@ -77,7 +77,7 @@ const Cart = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+      <h2 className="text-2xl font-bold mb-4">Your Wishlist</h2>
 
       <ul className="divide-y divide-gray-300">
         {cartProducts.map((productData, index) => {
@@ -104,7 +104,7 @@ const Cart = () => {
       </ul>
 
       <div className="mt-4">
-        <p className="text-xl font-bold">Total Price: ${totalPrice}</p>
+        <p className="text-xl font-bold">Total Price: {totalPrice}</p>
         <button
           onClick={proceedToPayment}
           className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"

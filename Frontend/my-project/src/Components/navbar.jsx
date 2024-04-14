@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/Cart";
 
-import axios from "axios";
-
-const Navbar = ({ setSearchQuery }) => {
-  const [searchQuery, setSearchQueryLocal] = useState("");
+const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-
-  const Navigate = useNavigate();
+  const { setSearchQuery } = useContext(CartContext);
 
   const handleSearch = (e) => {
     const query = e.target.value;
-    setSearchQueryLocal(query);
     setSearchQuery(query);
   };
 
@@ -20,39 +16,23 @@ const Navbar = ({ setSearchQuery }) => {
   };
 
   const handleLogout = () => {
-    // This is the logout button
-    // Perform logout logic here
-    axios
-      .get("http://localhost:8006/api/User/logout")
-      .then(() => {
-        console.log("Logged out successfully");
-        // Redirect to the homepage after successful logout
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Logout failed:", error);
-        // Handle logout failure, if necessary
-      });
+    // Logout logic
   };
 
   return (
     <nav className="bg-lime-700 p-4 shadow-lg">
       <div className="flex items-center justify-between">
-        {/* Home button */}
         <button className="text-white text-lg transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full">
-          <Link to="/Product">Products</Link>
+          <Link to="/">Home</Link>
         </button>
-        {/* Search bar */}
         <div className="flex items-center w-1/2 mx-auto">
           <input
             type="text"
             placeholder="Search..."
             className="w-full px-3 py-2 rounded-full bg-black text-white outline-none"
-            value={searchQuery}
             onChange={handleSearch}
           />
         </div>
-        {/* Responsive menu button */}
         <div className="relative">
           <button
             className="text-white text-lg transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full focus:outline-none"
@@ -73,7 +53,6 @@ const Navbar = ({ setSearchQuery }) => {
               />
             </svg>
           </button>
-          {/* Responsive menu dropdown */}
           {showMenu && (
             <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-10">
               <Link

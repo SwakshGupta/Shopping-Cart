@@ -7,6 +7,7 @@ export const ProductProvider = (props) => {
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState(""); // This state is added for sorting purpose
   const [homeproduct, setHomeProduct] = useState([]);
+  const [category, setCategory] = useState("");
 
   const contextValue = {
     items,
@@ -15,6 +16,8 @@ export const ProductProvider = (props) => {
     setSortOrder,
     homeproduct,
     setHomeProduct,
+    category,
+    setCategory,
   };
 
   return (

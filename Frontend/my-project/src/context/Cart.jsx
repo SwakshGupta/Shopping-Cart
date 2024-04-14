@@ -7,10 +7,14 @@ export const CartContext = createContext(); // This is store where all the data 
 export const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
 
+  const [searchQuery, setSearchQuery] = useState(""); // this state is added for the searching purpose in the product page
+
   // Functions to add, remove, or update items in the cart can go here
 
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems }}>
+    <CartContext.Provider
+      value={{ cartItems, setCartItems, searchQuery, setSearchQuery }}
+    >
       {props.children}
     </CartContext.Provider>
   );
