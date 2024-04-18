@@ -11,7 +11,7 @@ import Add_Product_Page from "./Components/Product_page/AddProduct_page";
 import ProductPage from "./Components/Product_page/Product_page";
 
 function App() {
-  const { category, setCategory } = useContext(ProductContext); // This state is use to change the product route dynamically
+  const { category, name, category1 } = useContext(ProductContext); // This state is use to change the product route dynamically
 
   return (
     <div className="h-screen bg-gray-300">
@@ -25,7 +25,10 @@ function App() {
           <Route path="/AddProduct" element={<Addproduct />} />
           <Route path="/Add_Home_Product" element={<Add_Home_Product />} />
           <Route path="/Add_Product_Page" element={<Add_Product_Page />} />
-          <Route path="/ProductPage" element={<ProductPage />} />
+          <Route
+            path="/productPage/:category1/:name"
+            element={<ProductPage />}
+          />
         </Routes>
       </Router>
     </div>

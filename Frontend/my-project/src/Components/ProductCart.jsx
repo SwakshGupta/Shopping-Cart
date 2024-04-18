@@ -5,15 +5,22 @@ import { ProductContext } from "../context/context";
 import { CartContext } from "../context/Cart";
 
 const Item = () => {
-  const { items, setItems, sortOrder, setSortOrder } =
-    useContext(ProductContext);
-  const { cartItems, setCartItems, searchQuery } = useContext(CartContext); // all  the context
+  const {
+    items,
+    setItems,
+    sortOrder,
+    setSortOrder,
+    setName,
+    setCategory1,
+    name,
+    category1,
+  } = useContext(ProductContext);
+  const { cartItems, setCartItems, searchQuery } = useContext(CartContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredItems, setFilteredItems] = useState([]);
   const [showSortButtons, setShowSortButtons] = useState(false);
   const location = useLocation();
-  const category = location.pathname.split("/")[2]; // Extract category from URL params
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,12 +52,14 @@ const Item = () => {
       sortedItems.sort((a, b) => b.price - a.price);
     }
 
-    // Filter items by category this category is obtained from the url
+    const category = location.pathname.split("/")[2]; // Extract category from URL params
+
+    // Filter items by category obtained from the URL
     const categoryFilteredItems = category
       ? sortedItems.filter((item) => item.category === category)
       : sortedItems;
     setFilteredItems(categoryFilteredItems);
-  }, [searchQuery, items, sortOrder, category]);
+  }, [searchQuery, items, sortOrder, location.pathname]);
 
   const handleAddToCart = (product) => {
     const cartData = {
@@ -79,6 +88,13 @@ const Item = () => {
 
   const toggleSortButtons = () => {
     setShowSortButtons(!showSortButtons);
+  };
+
+  const handleItemClick = (category, name) => {
+    setCategory1(category);
+    setName(name);
+    console.log(name, category);
+    window.location.href = `/productPage/${category}/${name}`;
   };
 
   if (loading) {
@@ -137,6 +153,9 @@ const Item = () => {
           <div
             key={uniqueItem.Id}
             className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4 transform hover:scale-105 transition duration-300"
+            onClick={() =>
+              handleItemClick(uniqueItem.category, uniqueItem.name)
+            }
           >
             <img
               className="w-full h-64 object-cover rounded-t-lg"

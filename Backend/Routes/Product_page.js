@@ -10,10 +10,10 @@ const {
   getById,
 } = require("../controllers/ProductPage");
 
-router.get("/", getAll);
+router.get("/getall", getAll);
 router.post("/add", addProduct);
-router.delete("/:id", deleteProduct);
-router.delete("/deleteAll", deleteAllProducts);
+router.post("/:id", deleteProduct);
+router.post("/deleteall", deleteAllProducts);
 router.get("/:id", getById);
 
 module.exports = router;

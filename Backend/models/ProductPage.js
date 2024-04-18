@@ -4,10 +4,9 @@ const ProductPageSchema = new Schema(
   {
     productId: {
       type: String,
-
       required: true,
     },
-    title: {
+    name: {
       type: String,
       required: true,
     },
@@ -15,14 +14,17 @@ const ProductPageSchema = new Schema(
       type: String,
       required: true,
     },
-    images: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    images: {
+      // Change the field name to singular, e.g., 'image'
+      type: String, // Change to type String to store a single image URL
+      required: true,
+    },
     price: {
       type: Number,
+      required: true,
+    },
+    category: {
+      type: String,
       required: true,
     },
   },

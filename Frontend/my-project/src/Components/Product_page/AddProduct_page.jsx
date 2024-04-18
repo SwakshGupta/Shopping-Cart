@@ -3,11 +3,12 @@ import axios from "axios";
 
 const Add_Product_Page = () => {
   const [productData, setProductData] = useState({
-    productId: "", // Changed Id to productId
-    title: "",
+    productId: "",
+    name: "",
     description: "",
-    images: [],
+    images: "", // Keep 'images' instead of 'image'
     price: "",
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -16,64 +17,34 @@ const Add_Product_Page = () => {
   };
 
   const handleFileChange = (event) => {
-    const files = event.target.files;
+    const file = event.target.files[0];
 
-    if (files) {
-      const imageArray = Array.from(files).map((file) => ({
-        file,
-        preview: URL.createObjectURL(file),
-      }));
-
-      // Read each file as base64 and store it in the state
-      Promise.all(
-        imageArray.map(
-          (imageObj) =>
-            new Promise((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onload = (e) => {
-                resolve({ ...imageObj, base64String: e.target.result });
-              };
-              reader.onerror = (error) => reject(error);
-              reader.readAsDataURL(imageObj.file);
-            })
-        )
-      )
-        .then((imagesWithBase64) => {
-          setProductData({ ...productData, images: imagesWithBase64 });
-        })
-        .catch((error) => console.error("Error reading file:", error));
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result;
+        setProductData({ ...productData, images: base64String }); // Change 'image' to 'images'
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("productId", productData.productId); // Changed Id to productId
-      formData.append("title", productData.title);
-      formData.append("description", productData.description);
-      formData.append("price", productData.price);
-      productData.images.forEach((image) => {
-        formData.append("images", image.file);
-      });
-
       const response = await axios.post(
         "http://localhost:8006/api/productpage/add",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        productData
       );
       console.log("Product added successfully:", response.data);
 
       setProductData({
-        productId: "", // Reset productId
-        title: "",
+        productId: "",
+        name: "",
         description: "",
-        images: [],
+        images: "", // Reset 'images' after successful submission
         price: "",
+        category: "",
       });
     } catch (error) {
       console.error("Error adding product:", error);
@@ -82,7 +53,7 @@ const Add_Product_Page = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-8 bg-black text-white p-8 rounded-md">
-      <h1 className="text-3xl font-bold mb-8 text-center"> Product Page</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Add Product</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="productId" className="block mb-2 font-semibold">
@@ -99,14 +70,14 @@ const Add_Product_Page = () => {
           />
         </div>
         <div>
-          <label htmlFor="title" className="block mb-2 font-semibold">
-            Title:
+          <label htmlFor="name" className="block mb-2 font-semibold">
+            Name:
           </label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={productData.title}
+            id="name"
+            name="name"
+            value={productData.name}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
             required
@@ -150,19 +121,42 @@ const Add_Product_Page = () => {
             name="images"
             onChange={handleFileChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
-            multiple
             accept="image/*"
             required
           />
-          {productData.images.map((image, index) => (
-            <img
-              key={index}
-              src={image.preview}
-              alt={`Preview ${index}`}
-              className="mt-2 w-32"
-            />
-          ))}
+          {productData.images && (
+            <img src={productData.images} alt="Preview" className="mt-2 w-32" />
+          )}
         </div>
+        <div>
+          <label htmlFor="category" className="block mb-2 font-semibold">
+            Category:
+          </label>
+          <select
+            id="category"
+            name="category"
+            value={productData.category}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+            required
+          >
+            <option value="">Select Category</option>
+            <option value="keyboard">Keyboard</option>
+            <option value="mouse">Mouse</option>
+            <option value="monitor">Monitors</option>
+            <option value="Laptop/Pcs">Laptops/PCs</option>
+            <option value="Audio">Audio</option>
+            <option value="Consoles">Consoles</option>
+            <option value="Controllers">Controllers</option>
+            <option value="MousePads">MousePads</option>
+            <option value="Phone">Phone</option>
+            <option value="Speakers">Speakers</option>
+            <option value="GamingBag">GamingBag</option>
+            <option value="OtherItems">OtherItems</option>
+            {/* Add more options as needed */}
+          </select>
+        </div>
+
         <button
           type="submit"
           className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 w-full"

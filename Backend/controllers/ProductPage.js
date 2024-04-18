@@ -16,16 +16,17 @@ const getAll = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const { productId, title, description, images, price } = req.body; // Extract the following things from req.body
+  const { productId, name, description, images, price, category } = req.body; // Extract the following things from req.body
 
   try {
     const newProduct = new ProductPage({
       // then make a new product out of it
       productId,
-      title,
+      name,
       description,
       images,
       price,
+      category,
     });
 
     const savedProduct = await newProduct.save();

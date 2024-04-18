@@ -15,8 +15,7 @@ const app = express();
 const PORT = 8006;
 
 const uri =
-  "mongodb+srv://swakshgupta:slogar123@cluster0.a1t2bg6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+  "mongodb+srv://swakshgupta:BV6MhsGr5kd7yGBQ@cluster0.a1t2bg6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // middlewwares
 
 app.use(cors()); // This is to accept request coming from different origins

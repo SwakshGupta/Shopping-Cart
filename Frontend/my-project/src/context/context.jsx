@@ -8,6 +8,8 @@ export const ProductProvider = (props) => {
   const [sortOrder, setSortOrder] = useState(""); // This state is added for sorting purpose
   const [homeproduct, setHomeProduct] = useState([]); // This state is for home products
   const [category, setCategory] = useState(""); // This is for sorting items in categories
+  const [name, setName] = useState(""); // This name will be use in the productpage to sort the items
+  const [category1, setCategory1] = useState(""); // This is for sorting items in categories
 
   const contextValue = {
     items,
@@ -18,6 +20,10 @@ export const ProductProvider = (props) => {
     setHomeProduct,
     category,
     setCategory,
+    name,
+    setName,
+    category1,
+    setCategory1,
   };
 
   return (
