@@ -32,5 +32,5 @@
 
 
 // so what i will do i will add category field to the productpage model and when someone click on a thing on product page then i will
-
+nd 
 use the category and name to filter the perticular product 

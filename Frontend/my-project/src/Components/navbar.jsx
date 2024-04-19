@@ -52,16 +52,16 @@ const Navbar = () => {
           {showMenu && (
             <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-10">
               <Link
-                to="/AddProduct"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                Add Product
-              </Link>
-              <Link
                 to="/cart"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Wishlist
+              </Link>
+              <Link
+                to="/Links"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Manage_Products
               </Link>
             </div>
           )}

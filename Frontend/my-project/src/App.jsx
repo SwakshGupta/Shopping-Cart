@@ -9,6 +9,9 @@ import Add_Home_Product from "./Components/Home/Add_Home";
 import { ProductContext } from "./context/context";
 import Add_Product_Page from "./Components/Product_page/AddProduct_page";
 import ProductPage from "./Components/Product_page/Product_page";
+import Links from "./Components/Links";
+import DeleteProductPageForm from "./Components/Delete_Forms/ProductPage";
+import DeleteProductForm from "./Components/Delete_Forms/Product";
 
 function App() {
   const { category, name, category1 } = useContext(ProductContext); // This state is use to change the product route dynamically
@@ -25,6 +28,10 @@ function App() {
           <Route path="/AddProduct" element={<Addproduct />} />
           <Route path="/Add_Home_Product" element={<Add_Home_Product />} />
           <Route path="/Add_Product_Page" element={<Add_Product_Page />} />
+          <Route path="/Links" element={<Links />} />
+          <Route path="/ProductPage" element={<DeleteProductPageForm />} />
+          <Route path="/Product" element={<DeleteProductPageForm />} />
+
           <Route
             path="/productPage/:category1/:name"
             element={<ProductPage />}

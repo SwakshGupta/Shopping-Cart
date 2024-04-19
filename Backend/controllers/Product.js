@@ -87,6 +87,27 @@ const deleteAllProducts = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+const searchProduct = async (req, res) => {
+  const { name, category } = req.query; // Extract the name and category from the query parameters
+
+  try {
+    const product = await Product.findOne({
+      name: { $regex: new RegExp(name, "i") }, // Case-insensitive search for the name
+      category: { $regex: new RegExp(category, "i") }, // Case-insensitive search for the category
+    });
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ message: "No product found with the given name and category" });
+    }
+
+    return res.status(200).json(product);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 module.exports = {
   getall,
@@ -94,4 +115,5 @@ module.exports = {
   DeleteProduct,
   deleteAllProducts,
   Getbyid,
+  searchProduct,
 };
