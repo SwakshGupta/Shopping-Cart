@@ -19,7 +19,7 @@ function Sign_up() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8001/api/User/add", {
+      const response = await axios.post("http://localhost:8006/api/User/add", {
         Email: email,
         password: password,
       });
@@ -44,7 +44,7 @@ function Sign_up() {
             htmlFor="name"
             className="block text-gray-700 font-semibold mb-2"
           >
-            Name
+            Email
           </label>
           <input
             type="text" // Change input type to "text"

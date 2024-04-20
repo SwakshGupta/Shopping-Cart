@@ -18,13 +18,14 @@ const getall = async (req, res) => {
 };
 
 const Addproduct = async (req, res) => {
-  const { Id, name, price, image, category } = req.body; // Extract the fllowing things from req.body
+  const { productId, name, description, price, image, category } = req.body; // Extract the fllowing things from req.body
 
   try {
     const newProduct = new Product({
       // then make a new product out of it
-      Id,
+      productId,
       name,
+      description,
       price,
       image,
       category,

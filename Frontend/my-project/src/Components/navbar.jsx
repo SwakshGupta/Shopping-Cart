@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="bg-lime-700 p-4 shadow-lg">
       <div className="flex items-center justify-between">
         <button className="text-white text-lg transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full">
-          <Link to="/">Home</Link>
+          <Link to="/">Tech Central</Link>
         </button>
         <div className="flex items-center w-1/2 mx-auto">
           <input
@@ -58,7 +58,7 @@ const Navbar = () => {
                 Wishlist
               </Link>
               <Link
-                to="/Links"
+                to="/Login"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Manage_Products

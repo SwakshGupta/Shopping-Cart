@@ -61,7 +61,13 @@ const Item = () => {
     setFilteredItems(categoryFilteredItems);
   }, [searchQuery, items, sortOrder, location.pathname]);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (event, product) => {
+    // Prevent the default action of the button click (e.g., form submission)
+    event.preventDefault();
+
+    // Prevent the click event from bubbling up to the parent container
+    event.stopPropagation();
+
     const cartData = {
       products: [
         {
@@ -97,87 +103,88 @@ const Item = () => {
     window.location.href = `/productPage/${category}/${name}`;
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
     <div className="mt-4">
-      <div className="relative">
-        <button
-          className="bg-black hover:bg-green-500 text-white font-bold py-2 px-4 rounded inline-flex items-center z-10 transition duration-300 ease-in-out transform hover:scale-10"
-          onClick={toggleSortButtons}
-        >
-          Sort
-          <svg
-            className="w-4 h-4 ml-2"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 12a2 2 0 100-4 2 2 0 000 4z"
-              clipRule="evenodd"
-            />
-            <path
-              fillRule="evenodd"
-              d="M2 10a2 2 0 114 0 2 2 0 01-4 0zM14 10a2 2 0 114 0 2 2 0 01-4 0zM6 10a2 2 0 114 0 2 2 0 01-4 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-        {showSortButtons && (
-          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+      {loading ? (
+        <div className="flex items-center justify-center h-screen">
+          {/* Animated loading spinner */}
+          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-l-4 border-lime-500"></div>
+        </div>
+      ) : (
+        <>
+          <div className="relative">
             <button
-              onClick={() => handleSort("lowToHigh")}
-              className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-white transition duration-300"
+              className="bg-black hover:bg-green-500 text-white font-bold py-2 px-4 rounded inline-flex items-center z-10 transition duration-300 ease-in-out transform hover:scale-10"
+              onClick={toggleSortButtons}
             >
-              Low to High
-            </button>
-            <button
-              onClick={() => handleSort("highToLow")}
-              className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-white transition duration-300"
-            >
-              High to Low
-            </button>
-          </div>
-        )}
-      </div>
-      <div className="flex flex-wrap justify-center relative z-0">
-        {filteredItems.map((uniqueItem) => (
-          <div
-            key={uniqueItem.Id}
-            className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4 transform hover:scale-105 transition duration-300"
-            onClick={() =>
-              handleItemClick(uniqueItem.category, uniqueItem.name)
-            }
-          >
-            <img
-              className="w-full h-64 object-cover rounded-t-lg"
-              src={uniqueItem.image}
-              alt={uniqueItem.name}
-            />
-
-            <div className="px-6 py-4">
-              <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
-              <p className="text-gray-700 text-base">{`Price: ${uniqueItem.price}`}</p>
-            </div>
-            <div className="px-6 py-4 flex justify-center">
-              <button
-                onClick={() => handleAddToCart(uniqueItem)}
-                className="bg-black hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+              Sort
+              <svg
+                className="w-4 h-4 ml-2"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
               >
-                Add to Wishlist
-              </button>
-            </div>
+                <path
+                  fillRule="evenodd"
+                  d="M10 12a2 2 0 100-4 2 2 0 000 4z"
+                  clipRule="evenodd"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M2 10a2 2 0 114 0 2 2 0 01-4 0zM14 10a2 2 0 114 0 2 2 0 01-4 0zM6 10a2 2 0 114 0 2 2 0 01-4 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            {showSortButtons && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                <button
+                  onClick={() => handleSort("lowToHigh")}
+                  className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-white transition duration-300"
+                >
+                  Low to High
+                </button>
+                <button
+                  onClick={() => handleSort("highToLow")}
+                  className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-white transition duration-300"
+                >
+                  High to Low
+                </button>
+              </div>
+            )}
           </div>
-        ))}
-      </div>
+          <div className="flex flex-wrap justify-center relative z-0">
+            {filteredItems.map((uniqueItem) => (
+              <div
+                key={uniqueItem.Id}
+                className="max-w-sm rounded-lg overflow-hidden shadow-md bg-white m-4 transform hover:scale-105 transition duration-300"
+                onClick={() =>
+                  handleItemClick(uniqueItem.category, uniqueItem.name)
+                }
+              >
+                <img
+                  className="w-full h-64 object-cover rounded-t-lg"
+                  src={uniqueItem.image}
+                  alt={uniqueItem.name}
+                />
+
+                <div className="px-6 py-4">
+                  <h2 className="font-bold text-xl mb-2">{uniqueItem.name}</h2>
+                  <p className="text-gray-700 text-base">{`Price: ${uniqueItem.price}`}</p>
+                </div>
+                <div className="px-6 py-4 flex justify-center">
+                  <button
+                    onClick={(event) => handleAddToCart(event, uniqueItem)}
+                    className="bg-black hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    Add to Wishlist
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

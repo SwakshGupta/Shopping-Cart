@@ -53,7 +53,7 @@ const Add_Home_Product = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-8 bg-black text-white p-8 rounded-md">
-      <h1 className="text-3xl font-bold mb-8 text-center">Add Product</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Add Home Product</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="Id" className="block mb-2 font-semibold">
@@ -135,6 +135,7 @@ const Add_Home_Product = () => {
             <option value="Phone">Phone</option>
             <option value="Speakers">Speakers</option>
             <option value="GamingBag">GamingBag</option>
+            <option value="Camera">Camera</option>
             <option value="OtherItems">OtherItems</option>
 
             {/* Add more options as needed */}

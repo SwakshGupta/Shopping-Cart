@@ -3,18 +3,20 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Navbar from "./Components/navbar";
 import Cart from "./Components/Shopping_Cart";
 import Item from "./Components/ProductCart";
-import Addproduct from "./Components/Addproduct";
 import Home from "./Components/Home/Home";
 import Add_Home_Product from "./Components/Home/Add_Home";
 import { ProductContext } from "./context/context";
+import { CartContext } from "./context/Cart";
 import Add_Product_Page from "./Components/Product_page/AddProduct_page";
 import ProductPage from "./Components/Product_page/Product_page";
 import Links from "./Components/Links";
 import DeleteProductPageForm from "./Components/Delete_Forms/ProductPage";
-import DeleteProductForm from "./Components/Delete_Forms/Product";
+import Sign_up from "./Components/authentication/Sign_up";
+import Login from "./Components/authentication/Login";
 
 function App() {
-  const { category, name, category1 } = useContext(ProductContext); // This state is use to change the product route dynamically
+  const { category } = useContext(ProductContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(CartContext); // Accessing isLoggedIn state and setIsLoggedIn function from CartContext
 
   return (
     <div className="h-screen bg-gray-300">
@@ -22,15 +24,22 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Update the route to use the category */}
+
           <Route path={`/Product/:${category}`} element={<Item />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/AddProduct" element={<Addproduct />} />
+
           <Route path="/Add_Home_Product" element={<Add_Home_Product />} />
           <Route path="/Add_Product_Page" element={<Add_Product_Page />} />
-          <Route path="/Links" element={<Links />} />
-          <Route path="/ProductPage" element={<DeleteProductPageForm />} />
-          <Route path="/Product" element={<DeleteProductPageForm />} />
+
+          {isLoggedIn && <Route path="/Links" element={<Links />} />}
+          {isLoggedIn && (
+            <Route path="/ProductPage" element={<DeleteProductPageForm />} />
+          )}
+          <Route path="/Sign" element={<Sign_up />} />
+          <Route
+            path="/Login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />} // Pass setIsLoggedIn to Login component
+          />
 
           <Route
             path="/productPage/:category1/:name"

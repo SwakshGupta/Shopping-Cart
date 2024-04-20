@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios"; // Import axios for making HTTP requests
+import axios from "axios";
+import { CartContext } from "../../context/Cart";
 
-function Login({ setIsLoggedIn }) {
-  // Accept setIsLoggedIn as a prop
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Use navigate hook to navigate to another page
+  const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(CartContext); // Access setIsLoggedIn from CartContext
 
   const handleChangeName = (e) => {
     setEmail(e.target.value);
@@ -28,13 +29,11 @@ function Login({ setIsLoggedIn }) {
         }
       );
 
-      // Handle successful login (e.g., show success message, redirect to dashboard)
       alert("Login successful!");
-      setIsLoggedIn(true); // This will update the login status
-      navigate("/Product"); // Redirect to dashboard page
+      setIsLoggedIn(true); // Update isLoggedIn state in CartContext
+      navigate("/Links");
     } catch (error) {
-      // Handle login error (e.g., display error message)
-      console.error("Login error:", error.response.data.message);
+      console.error("Login error:", error.message);
       alert("Login failed. Please check your credentials and try again.");
     }
   };

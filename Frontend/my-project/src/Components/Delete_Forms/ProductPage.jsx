@@ -6,6 +6,7 @@ function DeleteProductPageForm() {
   const [productId, setProductId] = useState("");
   const [category, setCategory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -16,6 +17,7 @@ function DeleteProductPageForm() {
     }
     setProductData(null);
     setErrorMessage("");
+    setSuccessMessage(""); // Clear success message on input change
   };
 
   const handleSubmit = async (event) => {
@@ -23,9 +25,10 @@ function DeleteProductPageForm() {
 
     try {
       const response = await axios.get(
-        `http://localhost:8006/api/productpage?name=${productId}&category=${category}`
+        `http://localhost:8006/api/product/search?name=${productId}&category=${category}`
       );
       setProductData(response.data);
+      console.log(response.data);
 
       if (response.data === null) {
         setErrorMessage("No product found with the given details.");
@@ -38,13 +41,14 @@ function DeleteProductPageForm() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(
-        `http://localhost:8006/api/products/${productData._id}`
+      await axios.post(
+        `http://localhost:8006/api/product/delete/${productData._id}`
       );
       console.log("Product deleted successfully");
       setProductData(null);
       setProductId("");
       setCategory("");
+      setSuccessMessage("Product deleted successfully"); // Set success message
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -103,11 +107,12 @@ function DeleteProductPageForm() {
       </form>
 
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      {successMessage && <p className="text-green-500">{successMessage}</p>}
 
       {productData && (
         <div className="mt-4">
           <img
-            src={productData.images}
+            src={productData.image}
             alt={productData.name}
             className="w-full h-auto"
           />

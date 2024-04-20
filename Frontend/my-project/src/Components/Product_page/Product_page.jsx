@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../../context/Cart";
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const { category1, name } = useParams(); // Get category and name from URL params
+  const { cartItems, setCartItems, searchQuery } = useContext(CartContext);
+  const [loading, setLoading] = useState(true); // State to manage loading
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8006/api/productpage/getall`
+          `http://localhost:8006/api/product/getall`
         );
         // Find the product based on category and name
         const foundProduct = response.data.find(
@@ -19,24 +22,58 @@ const ProductPage = () => {
             product.name.toLowerCase() === name.toLowerCase()
         );
         setProduct(foundProduct);
+        setLoading(false); // Set loading to false after product is fetched
       } catch (error) {
         console.error("Error fetching product:", error);
+        setLoading(false); // Set loading to false in case of error
       }
     };
 
     fetchProduct();
   }, [category1, name]); // Re-fetch product when category or name change
 
-  if (!product) {
-    return <div className="container mx-auto mt-8">Loading...</div>;
+  const handleAddToCart = (event, product) => {
+    // Prevent the default action of the button click (e.g., form submission)
+    event.preventDefault();
+
+    // Prevent the click event from bubbling up to the parent container
+    event.stopPropagation();
+
+    const cartData = {
+      products: [
+        {
+          productId: product._id,
+        },
+      ],
+    };
+
+    axios
+      .post("http://localhost:8006/api/cart/add", cartData)
+      .then((response) => {
+        console.log("Item added to cart successfully:", response.data);
+        setCartItems([...cartItems, product]);
+      })
+      .catch((error) => {
+        console.error("Error adding item to cart:", error);
+      });
+  };
+
+  // Render loading spinner if product is still loading
+  if (loading) {
+    return (
+      <div className="container mx-auto mt-8 flex justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-l-4 border-gray-800"></div>
+      </div>
+    );
   }
 
+  // Render product once it's loaded
   return (
     <div className="bg-gray-100">
       <div className="max-w-full mx-auto bg-white rounded-lg shadow-md p-8 flex flex-col md:flex-row">
         <div className="md:w-1/2 mb-8 md:mb-0">
           <img
-            src={product.images}
+            src={product.image}
             alt={product.name}
             className="w-full h-auto hover:scale-105 transition-transform duration-300"
           />
@@ -50,6 +87,12 @@ const ProductPage = () => {
             <p className="text-lg mb-4">{product.description}</p>
           </div>
           <div className="flex items-center">
+            <button
+              onClick={(event) => handleAddToCart(event, uniqueItem)}
+              className="bg-black hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 mr-4"
+            >
+              Add to Wishlist
+            </button>
             <a
               href={`https://wa.me/1234567890/?text=I'm%20interested%20in%20this%20product:%20${product.name}`}
               target="_blank"

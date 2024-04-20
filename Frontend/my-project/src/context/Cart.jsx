@@ -9,11 +9,20 @@ export const CartProvider = (props) => {
 
   const [searchQuery, setSearchQuery] = useState(""); // this state is added for the searching purpose in the product page
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // This logg in functionality is added for the login purpose
+
   // Functions to add, remove, or update items in the cart can go here
 
   return (
     <CartContext.Provider
-      value={{ cartItems, setCartItems, searchQuery, setSearchQuery }}
+      value={{
+        cartItems,
+        setCartItems,
+        searchQuery,
+        setSearchQuery,
+        isLoggedIn,
+        setIsLoggedIn,
+      }}
     >
       {props.children}
     </CartContext.Provider>
