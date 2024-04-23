@@ -153,18 +153,21 @@ const Add_Product_Page = () => {
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
             required
           >
-            <option value="">Select Category</option>
-            <option value="keyboard">Keyboard</option>
-            <option value="mouse">Mouse</option>
-            <option value="monitor">Monitors</option>
-            <option value="Laptop/Pcs">Laptops/PCs</option>
             <option value="Audio">Audio</option>
+            <option value="Contollers">Contollers</option>
+            <option value="Monitors">Monitors</option>
+            <option value="Laptops">Laptops</option>
+            <option value="Mice">Mice</option>
+            <option value="Mousepads">Mousepads</option>
+            <option value="Keyboard">Keyboard</option>
+            <option value="Storage">Storages</option>
+            <option value="Cameras & Lenses">Cameras & Lenses</option>
             <option value="Consoles">Consoles</option>
-            <option value="Controllers">Controllers</option>
-            <option value="MousePads">MousePads</option>
-            <option value="Phone">Phone</option>
-            <option value="Speakers">Speakers</option>
-            <option value="GamingBag">GamingBag</option>
+            <option value="Peripheral ">Peripheral </option>
+            <option value="Room Decor/Cosmetics">Room Decor/Cosmetics</option>
+            <option value="PC Parts">PC Parts</option>
+            <option value="Phones">Phones</option>
+            <option value="RAM">RAM</option>
             <option value="OtherItems">OtherItems</option>
             {/* Add more options as needed */}
           </select>
@@ -182,3 +185,7 @@ const Add_Product_Page = () => {
 };
 
 export default Add_Product_Page;
+
+// Audio contollers Monitors Mousepads Laptops Keyboards Mouse Storage Cameras/Lenses
+
+// Consoles Peripheral Room Decor/Cosmetics  PCParts RAM Other items

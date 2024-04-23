@@ -17,7 +17,7 @@ const ProductPageSchema = new Schema(
     images: {
       // Change the field name to singular, e.g., 'image'
       type: String, // Change to type String to store a single image URL
-      required: true,
+      required: false,
     },
     price: {
       type: Number,

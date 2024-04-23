@@ -32,7 +32,7 @@ function Home() {
           <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-l-4 border-lime-500"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {homeproduct.map((product) => (
             <div
               key={product._id}

@@ -8,7 +8,6 @@ const User = require("./Routes/User");
 const login = require("./Routes/authentication/login");
 const logout = require("./Routes/authentication/logout");
 const Home_product = require("./Routes/Home_product");
-const Product_Page = require("./Routes/Product_page");
 
 const app = express();
 
@@ -36,7 +35,6 @@ app.use("/api/home", Home_product);
 app.use("/api/User", User);
 app.use("/api/User", login);
 app.use("/api/User", logout);
-app.use("/api/productpage", Product_Page);
 
 app.listen(PORT, () => console.log(`Server has been started at PORT ${PORT}`));
 

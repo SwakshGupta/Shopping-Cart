@@ -6,8 +6,8 @@ const ProductSchema = new Schema(
   {
     productId: {
       type: String,
-      unique: true,
       required: true,
+      unique: true,
     },
 
     name: {
@@ -26,7 +26,7 @@ const ProductSchema = new Schema(
     },
     image: {
       type: String,
-      required: true,
+      required: false,
     },
     category: {
       type: String,
