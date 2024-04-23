@@ -1,4 +1,5 @@
 import React from "react";
+import img from "./images/1.jpeg";
 
 function Developer() {
   return (
@@ -6,10 +7,10 @@ function Developer() {
       <div className="bg-gray-900">
         <div className="flex justify-end items-center p-4 md:p-6">
           <a
-            href="https://github.com/your-github-username"
+            href="https://github.com/SwakshGupta"
             target="_blank"
             rel="noopener noreferrer"
-            className="mr-4"
+            className="mr-4 hover:text-green-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +31,7 @@ function Developer() {
             href="https://www.linkedin.com/in/your-linkedin-username"
             target="_blank"
             rel="noopener noreferrer"
+            className="mr-4 hover:text-green-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +49,19 @@ function Developer() {
             </svg>
           </a>
         </div>
+        <div className="flex justify-center items-center">
+          <div className="relative">
+            <div className="absolute -mt-10 left-28 top-10 z-10">
+              <div className="w-80 h-80 md:w-96 md:h-96 border-4 border-green-500 rounded-full mr-10">
+                <img
+                  src={img}
+                  alt="Profile"
+                  className="w-full h-full rounded-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         <p className="text-s font-thin italic m-4 mt-0 text-white md:m-6 md:mt-0">
           &lt;html&gt;
         </p>
@@ -63,9 +78,14 @@ function Developer() {
             </p>
             <p className="text-7xl font-extrabold">Full stack developer</p>
             <p className="text-s font-thin italic m-6">&lt;/h1&gt;</p>
-            <button className="bg-gray-900 text-green-500 border border-green-500 px-6 py-2 rounded-lg mt-4 ml-2">
+            <a
+              href="https://wa.me/918580903643"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gray-900 text-green-500 border border-green-500 px-6 py-2 rounded-lg mt-4 ml-2 "
+            >
               Contact Me
-            </button>
+            </a>
           </div>
         </div>
 
