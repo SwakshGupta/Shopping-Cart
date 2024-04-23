@@ -111,6 +111,15 @@ const Cart = () => {
         >
           Proceed to Payment
         </button>
+
+        <a
+          href="https://wa.me/917358781871"
+          className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mt-6 ml-8"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Contact me on WhatsApp
+        </a>
       </div>
     </div>
   );

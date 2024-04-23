@@ -84,13 +84,6 @@ function Login() {
           Login
         </button>
       </form>
-
-      <p className="text-gray-600 mt-4">
-        Not Signed up?{" "}
-        <Link to="/signup" className="text-blue-500">
-          Signup here
-        </Link>
-      </p>
     </div>
   );
 }

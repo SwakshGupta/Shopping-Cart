@@ -74,9 +74,9 @@ function Developer() {
             <p className="text-s font-thin italic m-6">&lt;h1&gt;</p>
             <p className="text-7xl font-extrabold mb-4">Hi</p>
             <p className="text-7xl font-extrabold mb-4">
-              I'M <span className="text-green-500">S</span>waksh
+              I'm <span className="text-green-500">S</span>waksh
             </p>
-            <p className="text-7xl font-extrabold">Full stack developer</p>
+            <p className="text-7xl font-extrabold">full stack developer</p>
             <p className="text-s font-thin italic m-6">&lt;/h1&gt;</p>
             <a
               href="https://wa.me/918580903643"

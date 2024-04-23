@@ -94,7 +94,7 @@ const ProductPage = () => {
               Add to Wishlist
             </button>
             <a
-              href={`https://wa.me/1234567890/?text=I'm%20interested%20in%20this%20product:%20${product.name}`}
+              href="https://wa.me/917358781871"
               target="_blank"
               rel="noopener noreferrer"
             >
