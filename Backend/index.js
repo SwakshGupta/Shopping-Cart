@@ -8,6 +8,7 @@ const User = require("./Routes/User");
 const login = require("./Routes/authentication/login");
 const logout = require("./Routes/authentication/logout");
 const Home_product = require("./Routes/Home_product");
+require("dotenv").config();
 
 const app = express();
 
