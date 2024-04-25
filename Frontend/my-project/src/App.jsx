@@ -15,6 +15,7 @@ import Sign_up from "./Components/authentication/Sign_up";
 import Login from "./Components/authentication/Login";
 import About from "./Components/About/About";
 import Developer from "./Components/About/Developer";
+import Terms from "./Components/About/terms";
 
 function App() {
   const { category } = useContext(ProductContext);
@@ -35,6 +36,7 @@ function App() {
             <Route path="/Add_Product_Page" element={<Add_Product_Page />} />
             <Route path="/About" element={<About />} />
             <Route path="/Developer" element={<Developer />} />
+            <Route path="/Terms" element={<Terms />} />
 
             {isLoggedIn && <Route path="/Links" element={<Links />} />}
             {isLoggedIn && (

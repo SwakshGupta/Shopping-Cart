@@ -3,6 +3,8 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { ProductContext } from "../context/context";
 import { CartContext } from "../context/Cart";
+import { ToastContainer, toast } from "react-toastify"; // for the notification part
+import "react-toastify/dist/ReactToastify.css";
 
 const Item = () => {
   const {
@@ -81,9 +83,13 @@ const Item = () => {
       .then((response) => {
         console.log("Item added to cart successfully:", response.data);
         setCartItems([...cartItems, product]);
+        // Show success notification
+        toast.success("Product added to wishlist!");
       })
       .catch((error) => {
         console.error("Error adding item to cart:", error);
+        // Show error notification
+        toast.error("Failed to add product to wishlist");
       });
   };
 
@@ -105,6 +111,7 @@ const Item = () => {
 
   return (
     <div className="mt-4">
+      <ToastContainer />
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           {/* Animated loading spinner */}

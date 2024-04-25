@@ -26,7 +26,7 @@ function Home() {
 
   return (
     <div className="max-w-7xl mx-auto mt-10 p-6">
-      <h1 className="text-3xl font-bold mb-8">Welcome to the Home page</h1>
+      <h1 className="text-3xl font-bold mb-8">Welcome to Tech Central</h1>
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-l-4 border-lime-500"></div>
@@ -54,9 +54,7 @@ function Home() {
                   to={`/Product/${product.category}`}
                   onClick={() => setCategory(product.category)}
                 >
-                  <h3 className="text-lg font-semibold mb-2">
-                    {product.category}
-                  </h3>
+                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
                 </Link>
               </div>
             </div>

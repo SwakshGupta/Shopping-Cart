@@ -62,38 +62,42 @@ function Developer() {
             </div>
           </div>
         </div>
-        <p className="text-s font-thin italic m-4 mt-0 text-white md:m-6 md:mt-0">
+        <p className="text-s font-thin italic m-4 mt-0 text-gray-400  md:m-6 md:mt-0">
           &lt;html&gt;
         </p>
-        <p className="text-s font-thin italic m-4 text-white md:m-6">
+        <p className="text-s font-thin italic m-4 text-gray-400 md:m-6">
           &lt;body&gt;
         </p>
 
         <div className="bg-gray-900 min-h-screen text-white flex items-center justify-start px-8">
           <div>
-            <p className="text-s font-thin italic m-6">&lt;h1&gt;</p>
-            <p className="text-7xl font-extrabold mb-4">Hi</p>
-            <p className="text-7xl font-extrabold mb-4">
-              I'm <span className="text-green-500">S</span>waksh
+            <p className="text-s font-thin italic text-gray-400 m-2 mt-4">
+              &lt;h1&gt;
             </p>
-            <p className="text-7xl font-extrabold">full stack developer</p>
-            <p className="text-s font-thin italic m-6">&lt;/h1&gt;</p>
+            <p className="text-7xl font-extrabold mb-2 mt-0">Hi</p>
+            <p className="text-7xl font-extrabold mb-2 mt-0">
+              I'm <span className="text-green-500">S</span>waksh ,
+            </p>
+            <p className="text-7xl font-extrabold mt-0">full stack developer</p>
+            <p className="text-s font-thin text-gray-400 m-2 mt-4">
+              &lt;/h1&gt;
+            </p>
             <a
               href="https://wa.me/918580903643"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-900 text-green-500 border border-green-500 px-6 py-2 rounded-lg mt-4 ml-2 "
+              className="bg-gray-900 text-green-500 border border-green-500 px-6 py-2 rounded-lg mt-4 ml-2"
             >
               Contact Me
             </a>
           </div>
         </div>
 
-        <p className="text-s font-thin italic m-4 text-white md:m-6">
+        <p className="text-s font-thin italic m-4 text-gray-400 md:m-6">
           &lt;/body&gt;
         </p>
 
-        <p className="text-s font-thin italic m-4 text-white mb-0 md:m-6">
+        <p className="text-s font-thin italic m-4text-gray-400 mb-0 md:m-6">
           &lt;/html&gt;
         </p>
       </div>

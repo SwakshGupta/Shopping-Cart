@@ -90,7 +90,7 @@ const Cart = () => {
               />
               <div className="ml-4">
                 <h3 className="font-semibold">{product.name}</h3>
-                <p className="text-black"> {` $ ${product.price}`} </p>
+                <p className="text-black"> {` ₹ ${product.price}`} </p>
               </div>
               <button
                 onClick={() => removeFromCart(product._id)}
@@ -105,16 +105,10 @@ const Cart = () => {
 
       <div className="mt-4">
         <p className="text-xl font-bold">Total Price: {totalPrice}</p>
-        <button
-          onClick={proceedToPayment}
-          className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
-        >
-          Proceed to Payment
-        </button>
 
         <a
           href="https://wa.me/917358781871"
-          className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mt-6 ml-8"
+          className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mt-6 "
           target="_blank"
           rel="noopener noreferrer"
         >

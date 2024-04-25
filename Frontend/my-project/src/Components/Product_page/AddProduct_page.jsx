@@ -154,21 +154,23 @@ const Add_Product_Page = () => {
             required
           >
             <option value="Audio">Audio</option>
+            <option value="Audio1">Audio1</option>
+
             <option value="Contollers">Contollers</option>
             <option value="Monitors">Monitors</option>
             <option value="Laptops">Laptops</option>
             <option value="Mice">Mice</option>
             <option value="Mousepads">Mousepads</option>
             <option value="Keyboard">Keyboard</option>
-            <option value="Storage">Storages</option>
-            <option value="Cameras & Lenses">Cameras & Lenses</option>
+            <option value="Storages">Storages</option>
+            <option value="Cameras_&_Lenses">Cameras & Lenses</option>
             <option value="Consoles">Consoles</option>
-            <option value="Peripheral ">Peripheral </option>
-            <option value="Room Decor/Cosmetics">Room Decor/Cosmetics</option>
-            <option value="PC Parts">PC Parts</option>
+            <option value="Peripherals ">Peripherals </option>
+            <option value="Room_Decor_Cosmetics">Room Decor/Cosmetics</option>
+            <option value="PC_Parts">PC Parts</option>
             <option value="Phones">Phones</option>
             <option value="RAM">RAM</option>
-            <option value="OtherItems">OtherItems</option>
+            <option value="Other_Items">Other Items</option>
             {/* Add more options as needed */}
           </select>
         </div>

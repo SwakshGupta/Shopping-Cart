@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-lime-700 p-4 shadow-lg">
+    <nav className="bg-blue-900 p-4 shadow-lg">
       <div className="flex items-center justify-between">
         <button className="text-white text-lg transition duration-300 hover:text-black hover:bg-black hover:bg-opacity-25 px-4 py-2 rounded-full">
           <Link to="/">Tech Central</Link>
@@ -68,6 +68,12 @@ const Navbar = () => {
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 About
+              </Link>
+              <Link
+                to="/Terms"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Terms & Conditons
               </Link>
               <Link
                 to="/Developer"
